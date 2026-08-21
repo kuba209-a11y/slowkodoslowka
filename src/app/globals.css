@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  /* Paleta oparta na kobalcie (główny), maśle (drugi) i jasnym błękicie
+     (trzeci) — inspirowana referencją. Pozostałe akcenty to tinty/odcienie
+     tej samej trójki, żeby paleta trzymała się razem zamiast rozjeżdżać się
+     w wiele niepowiązanych barw. */
+  --color-paper: #FBF3DF;
+  --color-paper-dim: #F5E9C9;
+  --color-ink: #1B2044;
+  --color-ink-soft: #5A5A78;
+
+  /* Kobalt — kolor główny, wyraźny, nasycony błękit-granat (lekko pastelowy,
+     ale to ma być realny kobalt, nie rozmyty fiolet) */
+  --color-cobalt: #AEC0F5;
+  --color-cobalt-deep: #2B48C7;
+  --color-cobalt-ink: #1B2559;
+
+  /* Masełkowy — drugi kolor */
+  --color-butter: #FBE193;
+  --color-butter-deep: #DFA82E;
+  --color-butter-ink: #6B4C0A;
+
+  /* Jasny błękit — trzeci kolor */
+  --color-sky: #CCE5FB;
+  --color-sky-deep: #4C9BDB;
+  --color-sky-ink: #1B4565;
+
+  /* Periwinkle — jaśniejszy, chłodniejszy odcień kobaltu; dodatkowy tint
+     z tej samej rodziny barw, do miejsc gdzie trzeba czwartego akcentu */
+  --color-periwinkle: #DFDDFA;
+  --color-periwinkle-deep: #6C5FDE;
+  --color-periwinkle-ink: #332966;
+
+  --color-card: #FFFDF7;
+  --color-border: #EBDDB4;
+
+  /* Wysokość sticky headera (pt-4 + h-[68px]) — używana do wyliczenia
+     pełnowysokościowego hero (100dvh minus header). */
+  --header-h: 84px;
+
+  --font-display: var(--font-fraunces);
+  --font-accent: var(--font-fraunces);
+  --font-body: var(--font-public-sans);
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-paper-dim: var(--color-paper-dim);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+
+  --color-cobalt: var(--color-cobalt);
+  --color-cobalt-deep: var(--color-cobalt-deep);
+  --color-cobalt-ink: var(--color-cobalt-ink);
+
+  --color-butter: var(--color-butter);
+  --color-butter-deep: var(--color-butter-deep);
+  --color-butter-ink: var(--color-butter-ink);
+
+  --color-sky: var(--color-sky);
+  --color-sky-deep: var(--color-sky-deep);
+  --color-sky-ink: var(--color-sky-ink);
+
+  --color-periwinkle: var(--color-periwinkle);
+  --color-periwinkle-deep: var(--color-periwinkle-deep);
+  --color-periwinkle-ink: var(--color-periwinkle-ink);
+
+  --color-card: var(--color-card);
+  --color-border: var(--color-border);
+
+  --font-display: var(--font-display);
+  --font-accent: var(--font-accent);
+  --font-body: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-butter);
+  color: var(--color-ink);
+}
+
+/* Visible focus ring everywhere, WCAG-friendly */
+:focus-visible {
+  outline: 3px solid var(--color-cobalt-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
