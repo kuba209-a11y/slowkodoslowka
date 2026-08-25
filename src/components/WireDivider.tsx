@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -26,6 +26,12 @@ const WAVES = [
   { amplitude: 39, period: 1050, phase: 0 },
   { amplitude: 15, period: 430, phase: 1.4 },
 ];
+
+// Rozmiary koralika i jego poświaty (w px) — używane do wycentrowania
+// przez odjęcie połowy wymiaru bezpośrednio ze współrzędnych, bo pozycja
+// jest teraz animowana przez transform (x/y), a nie przez left/top.
+const BEAD_SIZE = 36; // h-9 w-9
+const GLOW_SIZE = 30;
 
 function wireY(x: number) {
   const sum = WAVES.reduce(
@@ -131,6 +137,25 @@ export function WireDivider({
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
+  // Realna szerokość paska (w px) — potrzebna, żeby przeliczyć wirtualne
+  // współrzędne drutu (0–W) na konkretne piksele. Animujemy pozycję przez
+  // transform (x/y), a nie przez left/top: left/top wymuszają przeliczenie
+  // layoutu i przemalowanie filtra drop-shadow w KAŻDEJ klatce scrolla, co
+  // na WebKit (Safari na macOS/iOS) objawia się "ciągnącym się" cieniem za
+  // kształtem — poprzednia rasteryzacja cienia nie zdąża się wyczyścić.
+  // transform jest kompozytowany na GPU i nie przemalowuje filtra przy
+  // każdym przesunięciu.
+  const [width, setWidth] = useState(0);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => setWidth(el.clientWidth);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Klocek ma się pojawić dopiero, gdy użytkownik faktycznie zacznie scrollować
   // — nie od razu po wejściu na stronę, nawet jeśli ten odcinek drutu jest już
   // (częściowo) w widoku przy pierwszym renderze.
@@ -160,8 +185,12 @@ export function WireDivider({
     [0, 1],
     reverse ? [W, 0] : [0, W]
   );
-  const left = useTransform(xUnits, (v) => `${(v / W) * 100}%`);
-  const top = useTransform(xUnits, (v) => wireY(v));
+  const xBase = useTransform(xUnits, (v) => (v / W) * width);
+  const yBase = useTransform(xUnits, wireY);
+  const beadX = useTransform(xBase, (v) => v - BEAD_SIZE / 2);
+  const beadY = useTransform(yBase, (v) => v - BEAD_SIZE / 2);
+  const glowX = useTransform(xBase, (v) => v - GLOW_SIZE / 2);
+  const glowY = useTransform(yBase, (v) => v - GLOW_SIZE / 2);
   // Koralik jest widoczny przez niemal cały czas, gdy pasek jest na ekranie —
   // znika dopiero tuż przy samej krawędzi, więc ruch trwa dokładnie tak długo,
   // jak scrollowanie po tym odcinku drutu (bez wcześniejszego "kończenia się").
@@ -202,19 +231,19 @@ export function WireDivider({
         <>
           <motion.div
             aria-hidden="true"
-            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full blur-xl"
+            className="absolute left-0 top-0 rounded-full blur-xl"
             style={{
-              left,
-              top,
+              x: glowX,
+              y: glowY,
               opacity: hasScrolled ? glowOpacity : 0,
               backgroundColor: bead,
-              width: 30,
-              height: 30,
+              width: GLOW_SIZE,
+              height: GLOW_SIZE,
             }}
           />
           <motion.div
-            className="absolute -translate-x-1/2 -translate-y-1/2"
-            style={{ left, top, opacity: hasScrolled ? opacity : 0 }}
+            className="absolute left-0 top-0"
+            style={{ x: beadX, y: beadY, opacity: hasScrolled ? opacity : 0 }}
           >
             <Bead shape={shape} color={bead} />
           </motion.div>
