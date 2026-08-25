@@ -35,13 +35,16 @@ export function RevealGroup({
   children,
   className,
   stagger = 0.1,
+  id,
 }: {
   children: ReactNode;
   className?: string;
   stagger?: number;
+  id?: string;
 }) {
   return (
     <motion.div
+      id={id}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}

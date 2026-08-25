@@ -17,9 +17,9 @@ export const stockPhotos = {
     credit: "Janko Ferlič / Unsplash",
   },
   adultsTalking: {
-    src: unsplash("photo-1714976694012-09d1d331f433"),
-    alt: "Dwie osoby dorosłe podczas rozmowy — zdjęcie ilustracyjne",
-    credit: "Vitaly Gariev / Unsplash",
+    src: unsplash("photo-1758273240360-76b908e7582a"),
+    alt: "Dorosła pacjentka podczas rozmowy z terapeutką w jasnym gabinecie — zdjęcie ilustracyjne",
+    credit: "Unsplash",
   },
   aboutColoring: {
     src: unsplash("photo-1587323655395-b1c77a12c89a"),

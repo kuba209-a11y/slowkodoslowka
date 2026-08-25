@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { ArrowUpRight, Phone, Speech } from "lucide-react";
+import { ArrowUpRight, Phone, PlugZap, UsersRound } from "lucide-react";
 import { business } from "@/lib/content";
 import { stockPhotos } from "@/lib/images";
-import { Reveal } from "./Reveal";
+import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
 // Mała, szara pszczółka — statyczna (bez animacji), "siedzi" w wybranym
 // miejscu na krzywej, np. w środku pętli.
@@ -19,8 +19,26 @@ function Bee({
 }) {
   return (
     <g transform={`translate(${x} ${y}) rotate(${rotation}) scale(${scale})`}>
-      <ellipse cx="-6" cy="-3" rx="6" ry="3.6" fill="var(--color-ink-soft)" opacity="0.35" />
-      <ellipse cx="6" cy="-3" rx="6" ry="3.6" fill="var(--color-ink-soft)" opacity="0.35" />
+      <g transform="translate(-1.5 -4) rotate(-18)">
+        <path
+          d="M0,0 C 2.5,-9 10,-12.5 14,-7.5 C 16,-4.5 12.5,0.5 6,1.8 C 2.5,2.4 0.5,1.2 0,0 Z"
+          fill="var(--color-ink-soft)"
+          opacity="0.22"
+          stroke="var(--color-ink-soft)"
+          strokeWidth="0.6"
+          strokeOpacity="0.45"
+        />
+      </g>
+      <g transform="translate(1.5 -4) scale(-1 1) rotate(-18)">
+        <path
+          d="M0,0 C 2.5,-9 10,-12.5 14,-7.5 C 16,-4.5 12.5,0.5 6,1.8 C 2.5,2.4 0.5,1.2 0,0 Z"
+          fill="var(--color-ink-soft)"
+          opacity="0.22"
+          stroke="var(--color-ink-soft)"
+          strokeWidth="0.6"
+          strokeOpacity="0.45"
+        />
+      </g>
       <ellipse cx="0" cy="0" rx="8.5" ry="6" fill="var(--color-ink-soft)" />
       <rect x="-3.6" y="-6" width="2.3" height="12" rx="1.1" fill="var(--color-ink)" opacity="0.6" />
       <rect x="1.3" y="-6" width="2.3" height="12" rx="1.1" fill="var(--color-ink)" opacity="0.6" />
@@ -74,11 +92,21 @@ function WavyLine({
   );
 }
 
+// Organiczna, kwiatowa plama — dekoracja w rogu kafelka bez zdjęcia
+// (odpowiednik kolorowych "blobów" spod kart w referencji z Dribbble).
+function Blob({ className }: { className: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 100 100" fill="currentColor" className={className}>
+      <path d="M50 4c14 0 18 15 30 20s21 17 15 31-22 18-34 22-31 3-40-9S6 40 15 26 36 4 50 4Z" />
+    </svg>
+  );
+}
+
 export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[calc(100dvh-var(--header-h))] items-center overflow-hidden px-4 py-10 sm:px-6 sm:py-14"
+      className="relative flex min-h-[calc(100dvh-var(--header-h))] items-center px-4 py-10 sm:px-6 sm:py-14"
     >
       {/* Faliste, przerywane linie w tle — pod tekstem i pod zdjęciami,
           z pszczółkami frunącymi wzdłuż ścieżki. */}
@@ -92,7 +120,7 @@ export function Hero() {
           dashArray="7 30"
           bees={[
             { x: 120, y: 20, rotation: -20 },
-            { x: 820, y: 150, rotation: 15, scale: 0.9 },
+            { x: 1150, y: 59, rotation: 30, scale: 0.9 },
           ]}
         />
         <WavyLine
@@ -110,136 +138,197 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
-        <div className="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-8">
-          <div className="relative">
-            {/* Delikatna, kręta ścieżka łącząca odznakę z nagłówkiem —
-                odpowiednik "doodle" z referencji. */}
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 420 90"
-              className="pointer-events-none absolute -left-2 top-4 hidden w-64 text-cobalt-deep/25 sm:block lg:w-80"
-              fill="none"
-            >
-              <path
-                d="M2 68C60 10 130 4 190 40s130 44 226 8"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeDasharray="1 10"
-                strokeLinecap="round"
-              />
-            </svg>
-
-            <Reveal>
-              <span className="relative inline-flex items-center gap-2 rounded-full bg-cobalt px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-cobalt-ink">
-                <span aria-hidden="true" className="text-sm">✺</span>
-                Gabinet logopedyczny · Rzeszów
-              </span>
-            </Reveal>
-
-            <Reveal delay={0.08}>
-              <h1 className="text-balance relative mt-7 font-display text-[3.1rem] font-bold leading-[0.94] tracking-tight text-ink sm:text-[4.6rem] lg:text-[5.4rem]">
-                Każde słowo
-                <br />
-                <span className="font-accent font-medium italic text-cobalt-deep">
-                  zasługuje na to,
-                </span>
-                <br />
-                by je usłyszeć
-              </h1>
-            </Reveal>
-
-            <Reveal delay={0.16}>
-              <p className="text-balance mt-7 max-w-lg text-lg leading-relaxed text-ink-soft">
-                Diagnoza i terapia mowy dla dzieci, młodzieży i dorosłych —
-                indywidualne podejście, wieloletnie doświadczenie i nowoczesna
-                metoda elektrostymulacji w przyjaznym gabinecie przy
-                ul. Paderewskiego.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.24}>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a
-                  href="#kontakt"
-                  className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-base font-semibold text-paper transition-transform hover:-translate-y-0.5"
-                >
-                  Umów diagnozę i konsultację
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <a
-                  href={business.phoneHref}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-ink/10 bg-card px-6 text-base font-semibold text-ink transition-colors hover:border-cobalt-deep"
-                >
-                  <Phone className="h-4 w-4" />
-                  {business.phone}
-                </a>
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal
-            delay={0.2}
-            className="relative mx-auto w-full max-w-sm lg:mx-0 lg:justify-self-end"
+        <div className="relative mx-auto max-w-3xl text-center">
+          {/* Delikatna, kręta ścieżka pod odznaką — odpowiednik "doodle" z referencji. */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 420 90"
+            className="pointer-events-none absolute -left-10 top-4 hidden w-64 text-cobalt-deep/25 sm:block lg:w-80"
+            fill="none"
           >
-            {/* Organiczny kształt wyzierający zza zdjęcia */}
-            <div
-              aria-hidden="true"
-              className="absolute -inset-4 -z-10 rotate-6 rounded-[3rem] bg-sky"
+            <path
+              d="M2 68C60 10 130 4 190 40s130 44 226 8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeDasharray="1 10"
+              strokeLinecap="round"
             />
+          </svg>
 
-            <div className="relative aspect-[4/5] -rotate-2 overflow-hidden rounded-[2.5rem] bg-cobalt shadow-[0_30px_60px_-25px_rgba(38,45,92,0.45)]">
-              <Image
-                src={stockPhotos.heroGirl.src}
-                alt={stockPhotos.heroGirl.alt}
-                fill
-                sizes="(max-width: 1024px) 80vw, 420px"
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            <span
-              aria-hidden="true"
-              className="absolute -top-7 -left-7 flex h-16 w-16 rotate-12 items-center justify-center rounded-2xl bg-butter text-3xl text-butter-ink shadow-lg"
-            >
-              ✺
-            </span>
-
-            <span
-              aria-hidden="true"
-              className="absolute -top-6 -right-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-card text-cobalt-deep shadow-lg"
-            >
-              <Speech className="h-6 w-6" strokeWidth={2} />
-            </span>
-
-            <div className="absolute -bottom-7 -left-9 flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 shadow-xl">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cobalt text-cobalt-ink font-display font-semibold">
-                EW
-              </span>
-              <div>
-                <p className="font-display text-sm font-semibold text-ink">
-                  Edyta Wierzbińska
-                </p>
-                <p className="text-xs text-ink-soft">Logopeda i nauczyciel</p>
-              </div>
-            </div>
-
-            <span
-              aria-hidden="true"
-              className="absolute -right-3 bottom-1/4 h-5 w-5 rounded-full bg-cobalt-deep shadow"
-            />
-
-            {/* Naklejki-etykiety porozrzucane dookoła zdjęcia (poza kadrem), pod różnymi kątami */}
-            <span className="absolute -left-24 top-[34%] hidden -rotate-[10deg] rounded-full bg-cobalt px-5 py-2.5 text-base font-semibold text-cobalt-ink shadow-md md:inline-flex">
-              #Diagnoza
-            </span>
-            <span className="absolute -right-20 top-1/2 hidden rotate-[7deg] rounded-full bg-sky px-5 py-2.5 text-base font-semibold text-sky-ink shadow-md md:inline-flex">
-              #Terapia
-            </span>
-            <span className="absolute -right-28 -bottom-6 hidden -rotate-[9deg] rounded-full bg-butter px-6 py-3 text-lg font-semibold text-butter-ink shadow-md md:inline-flex">
-              #Elektrostymulacja
+          <Reveal>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-cobalt px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-cobalt-ink">
+              <span aria-hidden="true" className="text-sm">✺</span>
+              Gabinet logopedyczny · Rzeszów
             </span>
           </Reveal>
+
+          <Reveal delay={0.08}>
+            <h1 className="text-balance relative mt-7 font-display text-[3.1rem] font-bold leading-[0.94] tracking-tight text-ink sm:text-[4.6rem] lg:text-[5.4rem]">
+              Każde słowo
+              <br />
+              <span className="font-accent font-medium italic text-cobalt-deep">
+                zasługuje na to,
+              </span>
+              <br />
+              by je usłyszeć
+            </h1>
+          </Reveal>
+
+          <Reveal delay={0.16}>
+            <p className="text-balance mx-auto mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
+              Diagnoza i terapia mowy w przyjaznym gabinecie przy
+              ul. Paderewskiego w Rzeszowie.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.24}>
+            <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <a
+                href="#kontakt"
+                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-base font-semibold text-paper transition-transform hover:-translate-y-0.5"
+              >
+                Umów diagnozę i konsultację
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
+                href={business.phoneHref}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-ink/10 bg-card px-6 text-base font-semibold text-ink transition-colors hover:border-cobalt-deep"
+              >
+                <Phone className="h-4 w-4" />
+                {business.phone}
+              </a>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="relative mt-10 sm:mt-12">
+          {/* Naklejki-etykiety porozrzucane wokół kafelków, pod różnymi kątami. */}
+          <span
+            aria-hidden="true"
+            className="absolute top-[72px] left-36 z-20 hidden -rotate-6 rounded-full bg-periwinkle-deep px-5 py-2.5 text-base font-semibold text-paper shadow-md lg:inline-flex"
+          >
+            #Terapia
+          </span>
+          <span
+            aria-hidden="true"
+            className="absolute top-2 left-[36%] z-20 hidden rotate-6 rounded-full bg-butter px-5 py-2.5 text-base font-semibold text-butter-ink shadow-md lg:inline-flex"
+          >
+            #Diagnoza
+          </span>
+          <span
+            aria-hidden="true"
+            className="absolute top-20 right-3 z-20 hidden -rotate-6 rounded-full bg-ink px-5 py-2.5 text-base font-semibold text-paper shadow-md lg:inline-flex"
+          >
+            #Komunikacja
+          </span>
+
+          <RevealGroup
+            id="dla-kogo"
+            className="grid gap-5 pt-8 sm:grid-cols-3 sm:items-end sm:pt-10"
+          >
+            {/* Kafelek — Dorośli: niższy, zdjęcie w większym medalionie +
+                dekoracyjna plama dla równowagi z sąsiednimi kafelkami.
+                Cały kafelek to link do cennika tej grupy w sekcji Oferta. */}
+            <RevealItem>
+              <a
+                href="#oferta"
+                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-sky p-6 pt-14 transition-transform hover:-translate-y-1"
+              >
+                <Blob
+                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 -rotate-12 text-sky-deep/25"
+                />
+                <div className="absolute -top-10 left-6 flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-sky-deep/25 ring-4 ring-periwinkle-deep">
+                  <UsersRound className="h-9 w-9 text-sky-ink" strokeWidth={1.75} />
+                </div>
+                <div className="relative flex items-start justify-end gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-sky-ink transition-transform group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
+                <div className="relative mt-auto pt-6">
+                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-sky-ink">
+                    18+
+                  </span>
+                  <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-sky-ink sm:text-[2.75rem]">
+                    Dorośli
+                  </h3>
+                  <p className="mt-2.5 text-base leading-relaxed text-sky-ink opacity-75">
+                    Poprawa wymowy oraz powrót do sprawnej mowy po udarze.
+                  </p>
+                </div>
+              </a>
+            </RevealItem>
+
+            {/* Kafelek — Dzieci i młodzież: wyższy, w środku, zdjęcie w większym
+                medalionie wyżej wychodzącym ponad kartę. Cały kafelek to link
+                do cennika tej grupy w sekcji Oferta. */}
+            <RevealItem>
+              <a
+                href="#oferta"
+                className="group relative flex min-h-[18.7rem] flex-col overflow-visible rounded-[2rem] bg-cobalt p-6 pt-16 transition-transform hover:-translate-y-1"
+              >
+                <div className="absolute -top-14 left-1/2 h-28 w-28 shrink-0 -translate-x-1/2 overflow-hidden rounded-full ring-4 ring-paper">
+                  <Image
+                    src={stockPhotos.heroGirl.src}
+                    alt={stockPhotos.heroGirl.alt}
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <div className="flex items-start justify-end gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-cobalt-ink transition-transform group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
+                <div className="mt-auto pt-6 text-center">
+                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-cobalt-ink">
+                    3–18 lat
+                  </span>
+                  <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-cobalt-ink sm:text-[2.75rem]">
+                    Dzieci i młodzież
+                  </h3>
+                  <p className="mt-2.5 text-base leading-relaxed text-cobalt-ink opacity-75">
+                    Wady wymowy, dyslalia, trudności z nauką czytania.
+                  </p>
+                </div>
+              </a>
+            </RevealItem>
+
+            {/* Kafelek — Elektrostymulacja: taki sam jak pierwszy, ikona w
+                medalionie tej samej wielkości (brak uczciwego zdjęcia stockowego).
+                Cały kafelek to link do cennika tej usługi w sekcji Oferta. */}
+            <RevealItem>
+              <a
+                href="#oferta"
+                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-butter p-6 pt-11 transition-transform hover:-translate-y-1"
+              >
+                <Blob
+                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-12 text-butter-deep/35"
+                />
+                <div className="absolute -top-8 left-6 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-butter-deep/25 ring-4 ring-paper">
+                  <PlugZap className="h-7 w-7 text-butter-ink" strokeWidth={1.75} />
+                </div>
+                <div className="relative flex items-start justify-end gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-butter-ink transition-transform group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
+                <div className="relative mt-auto pt-6">
+                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-butter-ink">
+                    Zabieg
+                  </span>
+                  <h3 className="mt-3 font-display text-[2.15rem] font-bold leading-[0.95] tracking-tight text-butter-ink sm:text-4xl">
+                    Elektrostymulacja
+                  </h3>
+                  <p className="mt-2.5 text-base leading-relaxed text-butter-ink opacity-75">
+                    Wzmacnianie mięśni ustno-twarzowych.
+                  </p>
+                </div>
+              </a>
+            </RevealItem>
+          </RevealGroup>
         </div>
       </div>
     </section>

@@ -1,7 +1,12 @@
-import Image from "next/image";
-import { GraduationCap, HeartHandshake, Target } from "lucide-react";
-import { stockPhotos } from "@/lib/images";
+import { Car, GraduationCap, HeartHandshake, ImageIcon, Target } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
+
+const areas = [
+  "Diagnoza i terapia zaburzeń mowy u dzieci i młodzieży",
+  "Korekcja wad wymowy u dzieci i młodzieży",
+  "Terapia osób z afazją po udarze (z dojazdem do pacjenta)",
+  "Zabiegi elektrostymulacji mięśni twarzy",
+];
 
 const points = [
   {
@@ -33,14 +38,11 @@ export function About() {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14">
           <Reveal className="relative mx-auto w-full max-w-sm lg:mx-0">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-butter">
-              <Image
-                src={stockPhotos.aboutColoring.src}
-                alt={stockPhotos.aboutColoring.alt}
-                fill
-                sizes="(max-width: 1024px) 80vw, 400px"
-                className="object-cover"
-              />
+            <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 overflow-hidden rounded-[2.5rem] border-2 border-dashed border-periwinkle bg-butter/60 px-6 text-center">
+              <ImageIcon aria-hidden="true" className="h-10 w-10 text-periwinkle-ink/60" strokeWidth={1.5} />
+              <span className="font-display text-sm font-semibold text-periwinkle-ink/70">
+                miejsce na zdj. Edyty
+              </span>
             </div>
             <span
               aria-hidden="true"
@@ -89,6 +91,24 @@ export function About() {
             </RevealGroup>
           </div>
         </div>
+
+        <RevealItem className="mt-10 rounded-[2rem] border border-border bg-card p-8 sm:p-10">
+          <h3 className="font-display text-xl font-semibold text-ink">
+            W swojej pracy zajmuję się:
+          </h3>
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+            {areas.map((area) => (
+              <li key={area} className="flex items-start gap-3">
+                <span aria-hidden="true" className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-cobalt-deep" />
+                <span className="text-ink-soft leading-relaxed">{area}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 flex items-start gap-2 text-sm text-ink-soft">
+            <Car className="mt-0.5 h-4 w-4 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
+            Dla osób dorosłych możliwy jest dojazd do pacjenta.
+          </p>
+        </RevealItem>
       </div>
     </section>
   );

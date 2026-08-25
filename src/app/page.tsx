@@ -1,7 +1,6 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
-import { Audience } from "@/components/Audience";
 import { Method } from "@/components/Method";
 import { Process } from "@/components/Process";
 import { Offer } from "@/components/Offer";
@@ -22,7 +21,6 @@ export default function Home() {
           shape="circle"
         />
         <About />
-        <Audience />
         <WireDivider
           color="color-mix(in srgb, var(--color-periwinkle) 55%, var(--color-periwinkle-deep) 45%)"
           beadColor="var(--color-periwinkle-deep)"
