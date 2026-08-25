@@ -237,8 +237,8 @@ export function Hero() {
                 <Blob
                   className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 -rotate-12 text-sky-deep/25"
                 />
-                <div className="absolute -top-10 left-6 flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-sky-deep/25 ring-4 ring-periwinkle-deep">
-                  <UsersRound className="h-9 w-9 text-sky-ink" strokeWidth={1.75} />
+                <div className="absolute -top-10 left-6 flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-sky-deep ring-4 ring-paper">
+                  <UsersRound className="h-9 w-9 text-paper" strokeWidth={1.75} />
                 </div>
                 <div className="relative flex items-start justify-end gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-sky-ink transition-transform group-hover:rotate-45">
@@ -307,8 +307,8 @@ export function Hero() {
                 <Blob
                   className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-12 text-butter-deep/35"
                 />
-                <div className="absolute -top-8 left-6 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-butter-deep/25 ring-4 ring-paper">
-                  <PlugZap className="h-7 w-7 text-butter-ink" strokeWidth={1.75} />
+                <div className="absolute -top-8 left-6 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-butter-deep ring-4 ring-paper">
+                  <PlugZap className="h-7 w-7 text-paper" strokeWidth={1.75} />
                 </div>
                 <div className="relative flex items-start justify-end gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-butter-ink transition-transform group-hover:rotate-45">
