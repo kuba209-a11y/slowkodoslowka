@@ -55,6 +55,14 @@ type Shape = "circle" | "star" | "cloud" | "sun";
 
 // Klocki z zabawki montessori — z połyskiem (radialny gradient) dla wrażenia
 // bryłowatości, zamiast płaskich ikon.
+//
+// Cień jest celowo dodany jako box-shadow na OPAKOWUJĄCYM div, a nie jako
+// filter: drop-shadow() na <svg>. Sam fakt bycia elementem animowanym przez
+// scroll (nawet przez transform, nie left/top) w połączeniu z filter na
+// WebKit (Safari macOS/iOS) potrafi zostawiać "widmowy" czarny ślad —
+// przeglądarka nie czyści w pełni poprzedniej rasteryzacji cienia z filtra
+// między klatkami. box-shadow nie korzysta z tego samego (wadliwego na
+// WebKit) potoku renderowania filtrów, więc nie ma tego efektu.
 function Bead({ shape, color }: { shape: Shape; color: string }) {
   const uid = useId().replace(/[:]/g, "");
   const gradId = `wg-${uid}`;
@@ -67,59 +75,57 @@ function Bead({ shape, color }: { shape: Shape; color: string }) {
     </radialGradient>
   );
 
-  switch (shape) {
-    case "star":
-      return (
-        <svg viewBox="0 0 40 40" className="h-9 w-9 drop-shadow-lg">
-          <defs>{gradient}</defs>
-          <path
-            d="M20 3l4.4 10.3L35 15l-8 7.6L29.4 34 20 28.2 10.6 34 13 22.6 5 15l10.6-1.7Z"
-            fill={`url(#${gradId})`}
-          />
-        </svg>
-      );
-    case "cloud":
-      return (
-        <svg viewBox="0 0 40 40" className="h-9 w-9 drop-shadow-lg">
-          <defs>{gradient}</defs>
-          <path
-            d="M11.5 28a6 6 0 01-1-11.9 8 8 0 0115.4-3A7 7 0 0134 26.7 5.5 5.5 0 0130.5 28h-19Z"
-            fill={`url(#${gradId})`}
-          />
-        </svg>
-      );
-    case "sun":
-      return (
-        <svg viewBox="0 0 40 40" className="h-9 w-9 drop-shadow-lg">
-          <defs>{gradient}</defs>
-          <path
-            d="M32 20L37 20M28.5 28.5L32 32M20 32L20 37M11.5 28.5L8 32M8 20L3 20M11.5 11.5L8 8M20 8L20 3M28.5 11.5L32 8"
-            stroke={color}
-            strokeWidth="2.6"
-            strokeLinecap="round"
-          />
-          <circle
-            cx="20"
-            cy="20"
-            r="9.5"
-            fill={`url(#${gradId})`}
-          />
-        </svg>
-      );
-    case "circle":
-    default:
-      return (
-        <svg viewBox="0 0 40 40" className="h-9 w-9 drop-shadow-lg">
-          <defs>{gradient}</defs>
-          <circle
-            cx="20"
-            cy="20"
-            r="16"
-            fill={`url(#${gradId})`}
-          />
-        </svg>
-      );
-  }
+  const svg = (() => {
+    switch (shape) {
+      case "star":
+        return (
+          <svg viewBox="0 0 40 40" className="h-9 w-9">
+            <defs>{gradient}</defs>
+            <path
+              d="M20 3l4.4 10.3L35 15l-8 7.6L29.4 34 20 28.2 10.6 34 13 22.6 5 15l10.6-1.7Z"
+              fill={`url(#${gradId})`}
+            />
+          </svg>
+        );
+      case "cloud":
+        return (
+          <svg viewBox="0 0 40 40" className="h-9 w-9">
+            <defs>{gradient}</defs>
+            <path
+              d="M11.5 28a6 6 0 01-1-11.9 8 8 0 0115.4-3A7 7 0 0134 26.7 5.5 5.5 0 0130.5 28h-19Z"
+              fill={`url(#${gradId})`}
+            />
+          </svg>
+        );
+      case "sun":
+        return (
+          <svg viewBox="0 0 40 40" className="h-9 w-9">
+            <defs>{gradient}</defs>
+            <path
+              d="M32 20L37 20M28.5 28.5L32 32M20 32L20 37M11.5 28.5L8 32M8 20L3 20M11.5 11.5L8 8M20 8L20 3M28.5 11.5L32 8"
+              stroke={color}
+              strokeWidth="2.6"
+              strokeLinecap="round"
+            />
+            <circle cx="20" cy="20" r="9.5" fill={`url(#${gradId})`} />
+          </svg>
+        );
+      case "circle":
+      default:
+        return (
+          <svg viewBox="0 0 40 40" className="h-9 w-9">
+            <defs>{gradient}</defs>
+            <circle cx="20" cy="20" r="16" fill={`url(#${gradId})`} />
+          </svg>
+        );
+    }
+  })();
+
+  return (
+    <div className="h-9 w-9 rounded-full shadow-lg">
+      {svg}
+    </div>
+  );
 }
 
 export function WireDivider({
@@ -231,7 +237,7 @@ export function WireDivider({
         <>
           <motion.div
             aria-hidden="true"
-            className="absolute left-0 top-0 rounded-full blur-xl"
+            className="absolute left-0 top-0 rounded-full blur-xl will-change-transform"
             style={{
               x: glowX,
               y: glowY,
@@ -242,7 +248,7 @@ export function WireDivider({
             }}
           />
           <motion.div
-            className="absolute left-0 top-0"
+            className="absolute left-0 top-0 will-change-transform"
             style={{ x: beadX, y: beadY, opacity: hasScrolled ? opacity : 0 }}
           >
             <Bead shape={shape} color={bead} />
