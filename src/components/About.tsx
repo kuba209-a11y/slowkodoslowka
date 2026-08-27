@@ -106,7 +106,7 @@ export function About() {
           </ul>
           <p className="mt-6 flex items-start gap-2 text-sm text-ink-soft">
             <Car className="mt-0.5 h-4 w-4 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
-            Dla osób dorosłych możliwy jest dojazd do pacjenta.
+            Możliwy jest dojazd do pacjenta.
           </p>
         </RevealItem>
       </div>

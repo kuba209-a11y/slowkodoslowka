@@ -76,6 +76,6 @@ export const faq = [
   },
   {
     q: "Czy możliwy jest dojazd do pacjenta?",
-    a: "Tak — w przypadku osób dorosłych, np. po udarze, możliwa jest pierwsza diagnoza i konsultacja z dojazdem do miejsca zamieszkania pacjenta.",
+    a: "Tak, możliwa jest pierwsza diagnoza i konsultacja z dojazdem do miejsca zamieszkania pacjenta.",
   },
 ];
