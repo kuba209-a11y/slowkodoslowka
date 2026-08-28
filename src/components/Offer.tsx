@@ -3,9 +3,9 @@ import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
 const styles = [
   { bg: "bg-cobalt", ink: "text-cobalt-ink", chip: "bg-card/70" },
-  { bg: "bg-sky", ink: "text-sky-ink", chip: "bg-card/70" },
+  { bg: "bg-lavender", ink: "text-lavender-ink", chip: "bg-card/70" },
   { bg: "bg-periwinkle", ink: "text-periwinkle-ink", chip: "bg-card/70" },
-  { bg: "bg-butter", ink: "text-butter-ink", chip: "bg-card/70" },
+  { bg: "bg-mint", ink: "text-mint-ink", chip: "bg-card/70" },
 ];
 
 export function Offer() {
@@ -14,12 +14,12 @@ export function Offer() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center rounded-full bg-butter px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-butter-ink">
+            <span className="inline-flex items-center rounded-full bg-mint px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-mint-ink">
               Oferta i cennik
             </span>
             <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
               Przejrzyste zasady,{" "}
-              <span className="font-accent italic text-cobalt-deep">bez niespodzianek</span>
+              <span className="font-accent text-cobalt-deep">bez niespodzianek</span>
             </h2>
           </div>
           <p className="max-w-sm text-sm text-ink-soft">
@@ -72,7 +72,7 @@ export function Offer() {
             </div>
             <a
               href="#kontakt"
-              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-butter px-7 text-base font-semibold text-butter-ink transition-transform hover:-translate-y-0.5"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-mint px-7 text-base font-semibold text-mint-ink transition-transform hover:-translate-y-0.5"
             >
               Umów wizytę
             </a>

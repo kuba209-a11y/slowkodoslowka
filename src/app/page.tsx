@@ -26,19 +26,23 @@ export default function Home() {
           beadColor="var(--color-periwinkle-deep)"
           shape="star"
           reverse
+          // Sekcja "Metoda" ma dużo mniejszy górny padding niż "O mnie" ma
+          // dolny, więc bez korekty drut wypada za wysoko (za duży odstęp od
+          // górnego kafelka, za mały od dolnego) — podciągamy go w górę.
+          className="-mt-[48px] sm:-mt-[88px] mb-[8px]! sm:mb-0!"
         />
         <Method />
         <Process />
         <WireDivider
-          color="color-mix(in srgb, var(--color-butter) 55%, var(--color-butter-deep) 45%)"
-          beadColor="var(--color-butter-deep)"
+          color="color-mix(in srgb, var(--color-mint) 55%, var(--color-mint-deep) 45%)"
+          beadColor="var(--color-mint-deep)"
           shape="sun"
         />
         <Offer />
         <FAQ />
         <WireDivider
-          color="color-mix(in srgb, var(--color-sky) 55%, var(--color-sky-deep) 45%)"
-          beadColor="var(--color-sky-deep)"
+          color="color-mix(in srgb, var(--color-lavender) 55%, var(--color-lavender-deep) 45%)"
+          beadColor="var(--color-lavender-deep)"
           shape="cloud"
           reverse
         />

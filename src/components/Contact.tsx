@@ -19,16 +19,16 @@ const quickActions = [
     label: "Napisz",
     sub: "e-mail",
     href: `mailto:${business.email}`,
-    bg: "bg-sky",
-    ink: "text-sky-ink",
+    bg: "bg-lavender",
+    ink: "text-lavender-ink",
   },
   {
     icon: MapPin,
     label: "Dojedź",
     sub: "mapa",
     href: business.mapsHref,
-    bg: "bg-butter",
-    ink: "text-butter-ink",
+    bg: "bg-mint",
+    ink: "text-mint-ink",
     external: true,
   },
 ];
@@ -59,7 +59,7 @@ export function Contact() {
           </span>
           <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
             Napiszmy do siebie{" "}
-            <span className="font-accent italic text-cobalt-deep">słówko</span>
+            <span className="font-accent text-cobalt-deep">słówko</span>
           </h2>
           <p className="mx-auto mt-3 max-w-lg leading-relaxed text-ink-soft">
             Umów pierwszą wizytę diagnostyczną lub zapytaj o szczegóły terapii

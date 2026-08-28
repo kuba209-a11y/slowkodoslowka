@@ -133,11 +133,15 @@ export function WireDivider({
   beadColor,
   shape = "circle",
   reverse = false,
+  className = "",
 }: {
   color: string;
   beadColor?: string;
   shape?: Shape;
   reverse?: boolean;
+  // Dodatkowe klasy (np. korekta marginesu), gdy sąsiadujące sekcje mają
+  // asymetryczny padding i drut wychodzi wizualnie nie na środku.
+  className?: string;
 }) {
   const bead = beadColor ?? color;
   const ref = useRef<HTMLDivElement>(null);
@@ -217,7 +221,7 @@ export function WireDivider({
     <div
       ref={ref}
       aria-hidden="true"
-      className="relative -mb-6 h-[200px] w-full overflow-hidden sm:-mb-8"
+      className={`relative -mb-6 h-[200px] w-full overflow-hidden sm:-mb-8 ${className}`}
     >
       <svg
         viewBox={`0 0 ${W} ${H}`}

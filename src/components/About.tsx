@@ -18,15 +18,15 @@ const points = [
   },
   {
     mark: Target,
-    bg: "bg-sky",
-    ink: "text-sky-ink",
+    bg: "bg-lavender",
+    ink: "text-lavender-ink",
     title: "Indywidualne podejście",
     text: "Dobór metod zawsze poprzedzony wnikliwym wywiadem i analizą potrzeb pacjenta.",
   },
   {
     mark: HeartHandshake,
-    bg: "bg-butter",
-    ink: "text-butter-ink",
+    bg: "bg-mint",
+    ink: "text-mint-ink",
     title: "Bezpieczeństwo i komfort",
     text: "Poczucie bezpieczeństwa sprzyja współpracy i trwałości efektów terapii.",
   },
@@ -38,7 +38,7 @@ export function About() {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14">
           <Reveal className="relative mx-auto w-full max-w-sm lg:mx-0">
-            <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 overflow-hidden rounded-[2.5rem] border-2 border-dashed border-periwinkle bg-butter/60 px-6 text-center">
+            <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 overflow-hidden rounded-[2.5rem] border-2 border-dashed border-periwinkle bg-mint/60 px-6 text-center">
               <ImageIcon aria-hidden="true" className="h-10 w-10 text-periwinkle-ink/60" strokeWidth={1.5} />
               <span className="font-display text-sm font-semibold text-periwinkle-ink/70">
                 miejsce na zdj. Edyty
@@ -58,7 +58,7 @@ export function About() {
             </span>
             <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
               Poznajmy się —{" "}
-              <span className="font-accent italic text-periwinkle-deep">jestem Edyta</span>
+              <span className="font-accent text-periwinkle-deep">jestem Edyta</span>
             </h2>
             <p className="mt-5 leading-relaxed text-ink-soft">
               Nauczyciel, logopeda z wieloletnim doświadczeniem. Pracuję

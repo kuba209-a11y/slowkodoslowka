@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight, Phone, PlugZap, UsersRound } from "lucide-react";
-import { business } from "@/lib/content";
+import { ArrowUpRight, PlugZap, UsersRound } from "lucide-react";
 import { stockPhotos } from "@/lib/images";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
@@ -163,42 +162,23 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <h1 className="text-balance relative mt-7 font-display text-[3.1rem] font-bold leading-[0.94] tracking-tight text-ink sm:text-[4.6rem] lg:text-[5.4rem]">
-              Każde słowo
+            <h1 className="text-balance relative mt-7 text-left text-[100px] leading-[121px] tracking-tight text-ink">
+              <span className="font-body font-semibold">Każde</span>{" "}
+              <span className="font-accent italic">słowo</span>
               <br />
-              <span className="font-accent font-medium italic text-cobalt-deep">
-                zasługuje na to,
-              </span>
+              <span className="font-body font-semibold">zasługuje na to,</span>
               <br />
-              by je usłyszeć
+              <span className="font-body font-semibold">by je</span>{" "}
+              <span className="font-accent italic">usłyszeć.</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.16}>
-            <p className="text-balance mx-auto mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
-              Diagnoza i terapia mowy w przyjaznym gabinecie przy
-              ul. Paderewskiego w Rzeszowie.
+            <p className="mt-4 ml-[84px] text-left text-base leading-relaxed text-ink-soft sm:whitespace-nowrap">
+              Diagnoza i terapia mowy w przyjaznym gabinecie przy ul. Paderewskiego w Rzeszowie.
             </p>
           </Reveal>
 
-          <Reveal delay={0.24}>
-            <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <a
-                href="#kontakt"
-                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-base font-semibold text-paper transition-transform hover:-translate-y-0.5"
-              >
-                Umów diagnozę i konsultację
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-              <a
-                href={business.phoneHref}
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-ink/10 bg-card px-6 text-base font-semibold text-ink transition-colors hover:border-cobalt-deep"
-              >
-                <Phone className="h-4 w-4" />
-                {business.phone}
-              </a>
-            </div>
-          </Reveal>
         </div>
 
         <div className="relative mt-10 sm:mt-12">
@@ -211,7 +191,7 @@ export function Hero() {
           </span>
           <span
             aria-hidden="true"
-            className="absolute top-2 left-[36%] z-20 hidden rotate-6 rounded-full bg-butter px-5 py-2.5 text-base font-semibold text-butter-ink shadow-md lg:inline-flex"
+            className="absolute top-2 left-[36%] z-20 hidden rotate-6 rounded-full bg-mint px-5 py-2.5 text-base font-semibold text-mint-ink shadow-md lg:inline-flex"
           >
             #Diagnoza
           </span>
@@ -232,27 +212,27 @@ export function Hero() {
             <RevealItem>
               <a
                 href="#oferta"
-                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-sky p-6 pt-14 transition-transform hover:-translate-y-1"
+                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-lavender p-6 pt-14 transition-transform hover:-translate-y-1"
               >
                 <Blob
-                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 -rotate-12 text-sky-deep/25"
+                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 -rotate-12 text-lavender-deep/25"
                 />
-                <div className="absolute -top-10 left-6 flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-sky-deep ring-4 ring-paper">
+                <div className="absolute -top-10 left-6 flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-lavender-deep ring-4 ring-paper">
                   <UsersRound className="h-9 w-9 text-paper" strokeWidth={1.75} />
                 </div>
                 <div className="relative flex items-start justify-end gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-sky-ink transition-transform group-hover:rotate-45">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-lavender-ink transition-transform group-hover:rotate-45">
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </div>
                 <div className="relative mt-auto pt-6">
-                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-sky-ink">
+                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-lavender-ink">
                     18+
                   </span>
-                  <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-sky-ink sm:text-[2.75rem]">
+                  <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-lavender-ink sm:text-[2.75rem]">
                     Dorośli
                   </h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-sky-ink opacity-75">
+                  <p className="mt-2.5 text-base leading-relaxed text-lavender-ink opacity-75">
                     Poprawa wymowy oraz powrót do sprawnej mowy po udarze.
                   </p>
                 </div>
@@ -302,27 +282,27 @@ export function Hero() {
             <RevealItem>
               <a
                 href="#oferta"
-                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-butter p-6 pt-11 transition-transform hover:-translate-y-1"
+                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-mint p-6 pt-11 transition-transform hover:-translate-y-1"
               >
                 <Blob
-                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-12 text-butter-deep/35"
+                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-12 text-mint-deep/35"
                 />
-                <div className="absolute -top-8 left-6 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-butter-deep ring-4 ring-paper">
+                <div className="absolute -top-8 left-6 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-mint-deep ring-4 ring-paper">
                   <PlugZap className="h-7 w-7 text-paper" strokeWidth={1.75} />
                 </div>
                 <div className="relative flex items-start justify-end gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-butter-ink transition-transform group-hover:rotate-45">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-mint-ink transition-transform group-hover:rotate-45">
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </div>
                 <div className="relative mt-auto pt-6">
-                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-butter-ink">
+                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-mint-ink">
                     Zabieg
                   </span>
-                  <h3 className="mt-3 font-display text-[2.15rem] font-bold leading-[0.95] tracking-tight text-butter-ink sm:text-4xl">
+                  <h3 className="mt-3 font-display text-[2.15rem] font-bold leading-[0.95] tracking-tight text-mint-ink sm:text-4xl">
                     Elektrostymulacja
                   </h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-butter-ink opacity-75">
+                  <p className="mt-2.5 text-base leading-relaxed text-mint-ink opacity-75">
                     Wzmacnianie mięśni ustno-twarzowych.
                   </p>
                 </div>

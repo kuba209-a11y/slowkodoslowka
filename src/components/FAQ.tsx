@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 import { faq } from "@/lib/content";
 import { Reveal } from "./Reveal";
 
-const chipColors = ["bg-cobalt", "bg-sky", "bg-butter", "bg-periwinkle"];
+const chipColors = ["bg-cobalt", "bg-lavender", "bg-mint", "bg-periwinkle"];
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -19,7 +19,7 @@ export function FAQ() {
           </span>
           <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
             Warto wiedzieć{" "}
-            <span className="font-accent italic text-sky-deep">przed wizytą</span>
+            <span className="font-accent text-lavender-deep">przed wizytą</span>
           </h2>
         </div>
 

@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Fraunces, Public_Sans } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
   subsets: ["latin-ext"],
   style: ["normal", "italic"],
-  weight: ["400", "500", "600", "700", "900"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const publicSans = Public_Sans({
-  variable: "--font-public-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin-ext"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -56,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pl"
-      className={`${fraunces.variable} ${publicSans.variable} antialiased`}
+      className={`${playfairDisplay.variable} ${inter.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-paper text-ink">
         <a

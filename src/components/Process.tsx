@@ -10,15 +10,15 @@ const steps = [
   },
   {
     number: "02",
-    bg: "bg-sky",
-    ink: "text-sky-ink",
+    bg: "bg-lavender",
+    ink: "text-lavender-ink",
     title: "Indywidualny plan terapii",
     text: "Dobór metod diagnostycznych i terapeutycznych dopasowanych do wieku i rodzaju trudności.",
   },
   {
     number: "03",
-    bg: "bg-butter",
-    ink: "text-butter-ink",
+    bg: "bg-mint",
+    ink: "text-mint-ink",
     title: "Regularne spotkania",
     text: "Cykliczne ćwiczenia (45 min) w spokojnej atmosferze, sprzyjającej trwałym efektom.",
   },
@@ -34,7 +34,7 @@ export function Process() {
           </span>
           <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
             Trzy kroki do{" "}
-            <span className="font-accent italic text-cobalt-deep">pewnej mowy</span>
+            <span className="font-accent text-cobalt-deep">pewnej mowy</span>
           </h2>
         </div>
 

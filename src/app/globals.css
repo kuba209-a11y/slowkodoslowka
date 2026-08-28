@@ -1,36 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta oparta na kobalcie (główny), maśle (drugi) i jasnym błękicie
-     (trzeci) — inspirowana referencją. Pozostałe akcenty to tinty/odcienie
-     tej samej trójki, żeby paleta trzymała się razem zamiast rozjeżdżać się
-     w wiele niepowiązanych barw. */
+  /* Paleta marki: kobalt (główny, wyraźny #1446d2), miętowa zieleń (drugi,
+     #daffb9) i lawenda (trzeci, #ccbdf5). Dla każdej rodziny ta sama
+     struktura tint/deep/ink: tint = pastelowe tło (odznaki, karty), deep =
+     nasycony odcień (przyciski, ikony, obwódki), ink = ciemny, kontrastowy
+     kolor tekstu na jasnym tle. Periwinkle to dodatkowy, czwarty akcent —
+     pomost między kobaltem a lawendą, do miejsc gdzie trzeba czterech
+     rozróżnialnych kolorów obok siebie (chipy, cykliczne karty). */
   --color-paper: #FBF3DF;
   --color-paper-dim: #F5E9C9;
   --color-ink: #1B2044;
   --color-ink-soft: #5A5A78;
 
-  /* Kobalt — kolor główny, wyraźny, nasycony błękit-granat (lekko pastelowy,
-     ale to ma być realny kobalt, nie rozmyty fiolet) */
-  --color-cobalt: #AEC0F5;
-  --color-cobalt-deep: #2B48C7;
-  --color-cobalt-ink: #1B2559;
+  /* Kobalt — kolor główny marki */
+  --color-cobalt: #AABFF8;
+  --color-cobalt-deep: #1446D2;
+  --color-cobalt-ink: #0F2E7A;
 
-  /* Masełkowy — drugi kolor */
-  --color-butter: #FBE193;
-  --color-butter-deep: #DFA82E;
-  --color-butter-ink: #6B4C0A;
+  /* Miętowa zieleń — drugi kolor */
+  --color-mint: #DAFFB9;
+  --color-mint-deep: #5FA038;
+  --color-mint-ink: #2F5A1B;
 
-  /* Jasny błękit — trzeci kolor */
-  --color-sky: #CCE5FB;
-  --color-sky-deep: #4C9BDB;
-  --color-sky-ink: #1B4565;
+  /* Lawenda — trzeci kolor */
+  --color-lavender: #CCBDF5;
+  --color-lavender-deep: #7A5AE0;
+  --color-lavender-ink: #3B2678;
 
-  /* Periwinkle — jaśniejszy, chłodniejszy odcień kobaltu; dodatkowy tint
-     z tej samej rodziny barw, do miejsc gdzie trzeba czwartego akcentu */
-  --color-periwinkle: #DFDDFA;
-  --color-periwinkle-deep: #6C5FDE;
-  --color-periwinkle-ink: #332966;
+  /* Periwinkle — błękitno-fioletowy pomost między kobaltem a lawendą;
+     dodatkowy tint z tej samej rodziny barw, do miejsc gdzie trzeba
+     czwartego akcentu */
+  --color-periwinkle: #D7D9FA;
+  --color-periwinkle-deep: #4C5FE3;
+  --color-periwinkle-ink: #29307A;
 
   --color-card: #FFFDF7;
   --color-border: #EBDDB4;
@@ -39,9 +42,9 @@
      pełnowysokościowego hero (100dvh minus header). */
   --header-h: 84px;
 
-  --font-display: var(--font-fraunces);
-  --font-accent: var(--font-fraunces);
-  --font-body: var(--font-public-sans);
+  --font-display: var(--font-playfair-display);
+  --font-accent: var(--font-playfair-display);
+  --font-body: var(--font-inter);
 }
 
 @theme inline {
@@ -54,13 +57,13 @@
   --color-cobalt-deep: var(--color-cobalt-deep);
   --color-cobalt-ink: var(--color-cobalt-ink);
 
-  --color-butter: var(--color-butter);
-  --color-butter-deep: var(--color-butter-deep);
-  --color-butter-ink: var(--color-butter-ink);
+  --color-mint: var(--color-mint);
+  --color-mint-deep: var(--color-mint-deep);
+  --color-mint-ink: var(--color-mint-ink);
 
-  --color-sky: var(--color-sky);
-  --color-sky-deep: var(--color-sky-deep);
-  --color-sky-ink: var(--color-sky-ink);
+  --color-lavender: var(--color-lavender);
+  --color-lavender-deep: var(--color-lavender-deep);
+  --color-lavender-ink: var(--color-lavender-ink);
 
   --color-periwinkle: var(--color-periwinkle);
   --color-periwinkle-deep: var(--color-periwinkle-deep);
@@ -85,7 +88,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-butter);
+  background: var(--color-mint);
   color: var(--color-ink);
 }
 
