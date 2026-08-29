@@ -31,4 +31,9 @@ export const stockPhotos = {
     alt: "Rodzic i dziecko rysujący razem — zdjęcie ilustracyjne",
     credit: "Vitaly Gariev / Unsplash",
   },
+  therapySession: {
+    src: unsplash("photo-1771765767087-ce71e4a7916a"),
+    alt: "Terapeutka pokazuje dziecku układ dłoni podczas zajęć logopedycznych — zdjęcie ilustracyjne",
+    credit: "Unsplash",
+  },
 };

@@ -34,8 +34,8 @@ export default function Home() {
         <Method />
         <Process />
         <WireDivider
-          color="color-mix(in srgb, var(--color-mint) 55%, var(--color-mint-deep) 45%)"
-          beadColor="var(--color-mint-deep)"
+          color="color-mix(in srgb, var(--color-gold) 55%, var(--color-gold-deep) 45%)"
+          beadColor="var(--color-gold-deep)"
           shape="sun"
         />
         <Offer />

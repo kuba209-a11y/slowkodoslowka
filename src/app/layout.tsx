@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     "logopeda dziecięcy Rzeszów",
     "afazja po udarze",
     "elektrostymulacja logopedyczna",
+    "terapia miofunkcyjna MFT",
     "wady wymowy",
     "Edyta Wierzbińska logopeda",
   ],

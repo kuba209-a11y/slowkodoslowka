@@ -5,7 +5,7 @@ export function LogoMark({ className }: { className?: string }) {
       <rect width="40" height="40" rx="12" fill="var(--color-cobalt-deep)" />
       <path
         d="M20 8c.6 4.2 2 6.8 6 8-4 1.2-5.4 3.8-6 8-.6-4.2-2-6.8-6-8 4-1.2 5.4-3.8 6-8Z"
-        fill="var(--color-mint)"
+        fill="var(--color-gold)"
       />
       <circle cx="30" cy="11" r="2.4" fill="var(--color-lavender)" />
     </svg>

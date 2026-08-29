@@ -5,13 +5,33 @@ import { Plus } from "lucide-react";
 import { faq } from "@/lib/content";
 import { Reveal } from "./Reveal";
 
-const chipColors = ["bg-cobalt", "bg-lavender", "bg-mint", "bg-periwinkle"];
+const chipColors = ["bg-cobalt", "bg-lavender", "bg-gold", "bg-periwinkle"];
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="px-4 py-20 sm:px-6 sm:py-28">
+    <section id="faq" className="px-4 pt-10 pb-20 sm:px-6 sm:pt-14 sm:pb-28">
+      {/* Dane strukturalne FAQPage — kwalifikują sekcję do rich snippets
+          w wynikach wyszukiwania Google, bez ingerencji w treść widoczną
+          dla użytkownika. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faq.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.a,
+              },
+            })),
+          }),
+        }}
+      />
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <span className="inline-flex items-center rounded-full bg-cobalt px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-cobalt-ink">
@@ -19,7 +39,7 @@ export function FAQ() {
           </span>
           <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
             Warto wiedzieć{" "}
-            <span className="font-accent text-lavender-deep">przed wizytą</span>
+            <span className="font-accent text-cobalt-deep">przed wizytą</span>
           </h2>
         </div>
 

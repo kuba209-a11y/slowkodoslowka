@@ -17,8 +17,8 @@ const steps = [
   },
   {
     number: "03",
-    bg: "bg-mint",
-    ink: "text-mint-ink",
+    bg: "bg-gold",
+    ink: "text-gold-ink",
     title: "Regularne spotkania",
     text: "Cykliczne ćwiczenia (45 min) w spokojnej atmosferze, sprzyjającej trwałym efektom.",
   },

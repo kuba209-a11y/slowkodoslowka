@@ -25,8 +25,8 @@ const points = [
   },
   {
     mark: HeartHandshake,
-    bg: "bg-mint",
-    ink: "text-mint-ink",
+    bg: "bg-gold",
+    ink: "text-gold-ink",
     title: "Bezpieczeństwo i komfort",
     text: "Poczucie bezpieczeństwa sprzyja współpracy i trwałości efektów terapii.",
   },
@@ -38,7 +38,7 @@ export function About() {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14">
           <Reveal className="relative mx-auto w-full max-w-sm lg:mx-0">
-            <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 overflow-hidden rounded-[2.5rem] border-2 border-dashed border-periwinkle bg-mint/60 px-6 text-center">
+            <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 overflow-hidden rounded-[2.5rem] border-2 border-dashed border-periwinkle bg-gold/60 px-6 text-center">
               <ImageIcon aria-hidden="true" className="h-10 w-10 text-periwinkle-ink/60" strokeWidth={1.5} />
               <span className="font-display text-sm font-semibold text-periwinkle-ink/70">
                 miejsce na zdj. Edyty
@@ -58,7 +58,7 @@ export function About() {
             </span>
             <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
               Poznajmy się —{" "}
-              <span className="font-accent text-periwinkle-deep">jestem Edyta</span>
+              <span className="font-accent text-cobalt-deep">jestem Edyta</span>
             </h2>
             <p className="mt-5 leading-relaxed text-ink-soft">
               Nauczyciel, logopeda z wieloletnim doświadczeniem. Pracuję
@@ -80,7 +80,7 @@ export function About() {
                   className={`rounded-2xl ${point.bg} p-5 transition-transform hover:-translate-y-1`}
                 >
                   <point.mark aria-hidden="true" className={`h-7 w-7 ${point.ink}`} strokeWidth={1.75} />
-                  <h3 className={`mt-3 font-display text-base font-semibold ${point.ink}`}>
+                  <h3 className={`mt-3 font-display text-xl font-bold leading-tight ${point.ink}`}>
                     {point.title}
                   </h3>
                   <p className={`mt-1.5 text-sm leading-relaxed ${point.ink} opacity-90`}>
@@ -93,7 +93,7 @@ export function About() {
         </div>
 
         <RevealItem className="mt-10 rounded-[2rem] border border-border bg-card p-8 sm:p-10">
-          <h3 className="font-display text-xl font-semibold text-ink">
+          <h3 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             W swojej pracy zajmuję się:
           </h3>
           <ul className="mt-5 grid gap-3 sm:grid-cols-2">

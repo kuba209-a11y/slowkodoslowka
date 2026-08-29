@@ -25,7 +25,7 @@ export function Footer() {
                   href={business.phoneHref}
                   className="flex items-center gap-2 hover:text-paper"
                 >
-                  <Phone className="h-4 w-4 text-mint" strokeWidth={1.75} />
+                  <Phone className="h-4 w-4 text-gold" strokeWidth={1.75} />
                   {business.phone}
                 </a>
               </li>
@@ -34,7 +34,7 @@ export function Footer() {
                   href={`mailto:${business.email}`}
                   className="flex items-center gap-2 hover:text-paper"
                 >
-                  <Mail className="h-4 w-4 text-mint" strokeWidth={1.75} />
+                  <Mail className="h-4 w-4 text-gold" strokeWidth={1.75} />
                   {business.email}
                 </a>
               </li>
@@ -51,7 +51,7 @@ export function Footer() {
               rel="noreferrer"
               className="mt-4 flex items-start gap-2 text-sm hover:text-paper"
             >
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-mint" strokeWidth={1.75} />
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" strokeWidth={1.75} />
               <span>
                 {business.addressLine1}
                 <br />

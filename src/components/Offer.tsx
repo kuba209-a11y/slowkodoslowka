@@ -5,26 +5,23 @@ const styles = [
   { bg: "bg-cobalt", ink: "text-cobalt-ink", chip: "bg-card/70" },
   { bg: "bg-lavender", ink: "text-lavender-ink", chip: "bg-card/70" },
   { bg: "bg-periwinkle", ink: "text-periwinkle-ink", chip: "bg-card/70" },
-  { bg: "bg-mint", ink: "text-mint-ink", chip: "bg-card/70" },
+  { bg: "bg-gold", ink: "text-gold-ink", chip: "bg-card/70" },
 ];
 
 export function Offer() {
   return (
     <section id="oferta" className="px-4 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center rounded-full bg-mint px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-mint-ink">
-              Oferta i cennik
-            </span>
-            <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-              Przejrzyste zasady,{" "}
-              <span className="font-accent text-cobalt-deep">bez niespodzianek</span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm text-ink-soft">
-            Dokładny plan terapii i liczbę spotkań ustalam indywidualnie po
-            pierwszej wizycie diagnostycznej.
+        <div className="max-w-2xl">
+          <span className="inline-flex items-center rounded-full bg-gold px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-gold-ink">
+            Oferta i cennik
+          </span>
+          <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
+            Przejrzyste zasady,{" "}
+            <span className="font-accent text-cobalt-deep">bez niespodzianek</span>
+          </h2>
+          <p className="mt-4 text-sm text-ink-soft sm:whitespace-nowrap">
+            Dokładny plan terapii i liczbę spotkań ustalam indywidualnie po pierwszej wizycie diagnostycznej.
           </p>
         </div>
 
@@ -72,7 +69,7 @@ export function Offer() {
             </div>
             <a
               href="#kontakt"
-              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-mint px-7 text-base font-semibold text-mint-ink transition-transform hover:-translate-y-0.5"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-gold px-7 text-base font-semibold text-gold-ink transition-transform hover:-translate-y-0.5"
             >
               Umów wizytę
             </a>

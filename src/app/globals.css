@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta marki: kobalt (główny, wyraźny #1446d2), miętowa zieleń (drugi,
-     #daffb9) i lawenda (trzeci, #ccbdf5). Dla każdej rodziny ta sama
-     struktura tint/deep/ink: tint = pastelowe tło (odznaki, karty), deep =
-     nasycony odcień (przyciski, ikony, obwódki), ink = ciemny, kontrastowy
-     kolor tekstu na jasnym tle. Periwinkle to dodatkowy, czwarty akcent —
+  /* Paleta marki: kobalt (główny, wyraźny #1446d2), złoto (drugi) i
+     lawenda (trzeci, #ccbdf5). Dla każdej rodziny ta sama struktura
+     tint/deep/ink: tint = pastelowe tło (odznaki, karty), deep = nasycony
+     odcień (przyciski, ikony, obwódki), ink = ciemny, kontrastowy kolor
+     tekstu na jasnym tle. Periwinkle to dodatkowy, czwarty akcent —
      pomost między kobaltem a lawendą, do miejsc gdzie trzeba czterech
      rozróżnialnych kolorów obok siebie (chipy, cykliczne karty). */
-  --color-paper: #FBF3DF;
-  --color-paper-dim: #F5E9C9;
+  --color-paper: #FCF6E7;
+  --color-paper-dim: #F8EFD7;
   --color-ink: #1B2044;
   --color-ink-soft: #5A5A78;
 
@@ -18,10 +18,10 @@
   --color-cobalt-deep: #1446D2;
   --color-cobalt-ink: #0F2E7A;
 
-  /* Miętowa zieleń — drugi kolor */
-  --color-mint: #DAFFB9;
-  --color-mint-deep: #5FA038;
-  --color-mint-ink: #2F5A1B;
+  /* Złoto — drugi kolor */
+  --color-gold: #FBE9AA;
+  --color-gold-deep: #E0A83A;
+  --color-gold-ink: #7A5A12;
 
   /* Lawenda — trzeci kolor */
   --color-lavender: #CCBDF5;
@@ -57,9 +57,9 @@
   --color-cobalt-deep: var(--color-cobalt-deep);
   --color-cobalt-ink: var(--color-cobalt-ink);
 
-  --color-mint: var(--color-mint);
-  --color-mint-deep: var(--color-mint-deep);
-  --color-mint-ink: var(--color-mint-ink);
+  --color-gold: var(--color-gold);
+  --color-gold-deep: var(--color-gold-deep);
+  --color-gold-ink: var(--color-gold-ink);
 
   --color-lavender: var(--color-lavender);
   --color-lavender-deep: var(--color-lavender-deep);
@@ -88,7 +88,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-mint);
+  background: var(--color-gold);
   color: var(--color-ink);
 }
 

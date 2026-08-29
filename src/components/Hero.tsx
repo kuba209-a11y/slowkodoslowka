@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight, PlugZap, UsersRound } from "lucide-react";
+import { Activity, ArrowUpRight, PlugZap } from "lucide-react";
 import { stockPhotos } from "@/lib/images";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
@@ -191,7 +191,7 @@ export function Hero() {
           </span>
           <span
             aria-hidden="true"
-            className="absolute top-2 left-[36%] z-20 hidden rotate-6 rounded-full bg-mint px-5 py-2.5 text-base font-semibold text-mint-ink shadow-md lg:inline-flex"
+            className="absolute top-2 left-[36%] z-20 hidden rotate-6 rounded-full bg-gold px-5 py-2.5 text-base font-semibold text-gold-ink shadow-md lg:inline-flex"
           >
             #Diagnoza
           </span>
@@ -206,9 +206,9 @@ export function Hero() {
             id="dla-kogo"
             className="grid gap-5 pt-8 sm:grid-cols-3 sm:items-end sm:pt-10"
           >
-            {/* Kafelek — Dorośli: niższy, zdjęcie w większym medalionie +
-                dekoracyjna plama dla równowagi z sąsiednimi kafelkami.
-                Cały kafelek to link do cennika tej grupy w sekcji Oferta. */}
+            {/* Kafelek — Terapia miofunkcyjna (MFT): niższy, ikona w medalionie
+                + dekoracyjna plama dla równowagi z sąsiednimi kafelkami.
+                Cały kafelek to link do cennika tej usługi w sekcji Oferta. */}
             <RevealItem>
               <a
                 href="#oferta"
@@ -218,7 +218,7 @@ export function Hero() {
                   className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 -rotate-12 text-lavender-deep/25"
                 />
                 <div className="absolute -top-10 left-6 flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-lavender-deep ring-4 ring-paper">
-                  <UsersRound className="h-9 w-9 text-paper" strokeWidth={1.75} />
+                  <Activity className="h-9 w-9 text-paper" strokeWidth={1.75} />
                 </div>
                 <div className="relative flex items-start justify-end gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-lavender-ink transition-transform group-hover:rotate-45">
@@ -227,21 +227,21 @@ export function Hero() {
                 </div>
                 <div className="relative mt-auto pt-6">
                   <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-lavender-ink">
-                    18+
+                    Terapia miofunkcyjna
                   </span>
                   <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-lavender-ink sm:text-[2.75rem]">
-                    Dorośli
+                    MFT
                   </h3>
                   <p className="mt-2.5 text-base leading-relaxed text-lavender-ink opacity-75">
-                    Poprawa wymowy oraz powrót do sprawnej mowy po udarze.
+                    Dla żucia, mowy, oddychania.
                   </p>
                 </div>
               </a>
             </RevealItem>
 
-            {/* Kafelek — Dzieci i młodzież: wyższy, w środku, zdjęcie w większym
-                medalionie wyżej wychodzącym ponad kartę. Cały kafelek to link
-                do cennika tej grupy w sekcji Oferta. */}
+            {/* Kafelek — Dorośli i dzieci (połączona grupa): wyższy, w środku,
+                zdjęcie w większym medalionie wyżej wychodzącym ponad kartę.
+                Cały kafelek to link do cennika w sekcji Oferta. */}
             <RevealItem>
               <a
                 href="#oferta"
@@ -264,13 +264,13 @@ export function Hero() {
                 </div>
                 <div className="mt-auto pt-6 text-center">
                   <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-cobalt-ink">
-                    3–18 lat
+                    Każdy wiek
                   </span>
                   <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-cobalt-ink sm:text-[2.75rem]">
-                    Dzieci i młodzież
+                    Dorośli i dzieci
                   </h3>
                   <p className="mt-2.5 text-base leading-relaxed text-cobalt-ink opacity-75">
-                    Wady wymowy, dyslalia, trudności z nauką czytania.
+                    Wady wymowy i opóźniony rozwój mowy u dzieci, powrót po udarze u dorosłych.
                   </p>
                 </div>
               </a>
@@ -282,27 +282,27 @@ export function Hero() {
             <RevealItem>
               <a
                 href="#oferta"
-                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-mint p-6 pt-11 transition-transform hover:-translate-y-1"
+                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-gold p-6 pt-11 transition-transform hover:-translate-y-1"
               >
                 <Blob
-                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-12 text-mint-deep/35"
+                  className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-12 text-gold-deep/35"
                 />
-                <div className="absolute -top-8 left-6 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-mint-deep ring-4 ring-paper">
+                <div className="absolute -top-8 left-6 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gold-deep ring-4 ring-paper">
                   <PlugZap className="h-7 w-7 text-paper" strokeWidth={1.75} />
                 </div>
                 <div className="relative flex items-start justify-end gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-mint-ink transition-transform group-hover:rotate-45">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card/70 text-gold-ink transition-transform group-hover:rotate-45">
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </div>
                 <div className="relative mt-auto pt-6">
-                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-mint-ink">
+                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-gold-ink">
                     Zabieg
                   </span>
-                  <h3 className="mt-3 font-display text-[2.15rem] font-bold leading-[0.95] tracking-tight text-mint-ink sm:text-4xl">
+                  <h3 className="mt-3 font-display text-[2.15rem] font-bold leading-[0.95] tracking-tight text-gold-ink sm:text-4xl">
                     Elektrostymulacja
                   </h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-mint-ink opacity-75">
+                  <p className="mt-2.5 text-base leading-relaxed text-gold-ink opacity-75">
                     Wzmacnianie mięśni ustno-twarzowych.
                   </p>
                 </div>

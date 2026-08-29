@@ -56,13 +56,10 @@ type Shape = "circle" | "star" | "cloud" | "sun";
 // Klocki z zabawki montessori — z połyskiem (radialny gradient) dla wrażenia
 // bryłowatości, zamiast płaskich ikon.
 //
-// Cień jest celowo dodany jako box-shadow na OPAKOWUJĄCYM div, a nie jako
-// filter: drop-shadow() na <svg>. Sam fakt bycia elementem animowanym przez
-// scroll (nawet przez transform, nie left/top) w połączeniu z filter na
-// WebKit (Safari macOS/iOS) potrafi zostawiać "widmowy" czarny ślad —
-// przeglądarka nie czyści w pełni poprzedniej rasteryzacji cienia z filtra
-// między klatkami. box-shadow nie korzysta z tego samego (wadliwego na
-// WebKit) potoku renderowania filtrów, więc nie ma tego efektu.
+// Celowo bez cienia (box-shadow/filter: drop-shadow) na opakowującym divie:
+// div jest zawsze kwadratowym/okrągłym pojemnikiem, a kształty typu gwiazda
+// czy chmurka go nie wypełniają — cień rysował się więc jako widoczna,
+// przezroczysta "bańka" wokół samego kształtu.
 function Bead({ shape, color }: { shape: Shape; color: string }) {
   const uid = useId().replace(/[:]/g, "");
   const gradId = `wg-${uid}`;
@@ -121,11 +118,7 @@ function Bead({ shape, color }: { shape: Shape; color: string }) {
     }
   })();
 
-  return (
-    <div className="h-9 w-9 rounded-full shadow-lg">
-      {svg}
-    </div>
-  );
+  return <div className="h-9 w-9">{svg}</div>;
 }
 
 export function WireDivider({

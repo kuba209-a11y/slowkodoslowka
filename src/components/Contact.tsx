@@ -27,8 +27,8 @@ const quickActions = [
     label: "Dojedź",
     sub: "mapa",
     href: business.mapsHref,
-    bg: "bg-mint",
-    ink: "text-mint-ink",
+    bg: "bg-gold",
+    ink: "text-gold-ink",
     external: true,
   },
 ];
@@ -50,7 +50,7 @@ export function Contact() {
   }
 
   return (
-    <section id="kontakt" className="px-4 py-20 sm:px-6 sm:py-28">
+    <section id="kontakt" className="px-4 pt-16 pb-20 sm:px-6 sm:pt-[90px] sm:pb-28">
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-periwinkle px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-periwinkle-ink">
