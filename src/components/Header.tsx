@@ -59,15 +59,26 @@ export function Header() {
           </a>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label={open ? "Zamknij menu" : "Otwórz menu"}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper-dim text-ink lg:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Na telefonie telefon do gabinetu musi być na jedno tapnięcie —
+            bez wchodzenia w menu. Obie kontrolki mają 44×44px i 8px odstępu. */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <a
+            href={business.phoneHref}
+            aria-label={`Zadzwoń: ${business.phone}`}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-cobalt-deep text-paper transition-transform active:scale-95"
+          >
+            <Phone className="h-5 w-5" strokeWidth={2.2} />
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? "Zamknij menu" : "Otwórz menu"}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper-dim text-ink transition-transform active:scale-95"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (

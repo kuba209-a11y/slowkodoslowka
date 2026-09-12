@@ -11,7 +11,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="px-4 pt-10 pb-20 sm:px-6 sm:pt-14 sm:pb-28">
+    <section id="faq" className="px-4 pt-8 pb-14 sm:px-6 sm:pt-14 sm:pb-28">
       {/* Dane strukturalne FAQPage — kwalifikują sekcję do rich snippets
           w wynikach wyszukiwania Google, bez ingerencji w treść widoczną
           dla użytkownika. */}

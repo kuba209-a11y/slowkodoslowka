@@ -7,13 +7,20 @@ import { Offer } from "@/components/Offer";
 import { FAQ } from "@/components/FAQ";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { MobileCta } from "@/components/MobileCta";
 import { WireDivider } from "@/components/WireDivider";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main id="main" className="flex-1">
+      {/* overflow-x-clip to bezpiecznik przed dekoracjami wychodzącymi poza
+          kadr: kafelki hero muszą mieć overflow-visible (medaliony wystają nad
+          górną krawędź), więc plama w rogu kafelka "Elektrostymulacja"
+          (-right-8) wypychała poziomy pasek przewijania. Wariant "clip"
+          zamiast "hidden" nie tworzy kontenera przewijania, więc nie psuje
+          sticky headera ani animacji powiązanych ze scrollem. */}
+      <main id="main" className="flex-1 overflow-x-clip">
         <Hero />
         <WireDivider
           color="color-mix(in srgb, var(--color-cobalt) 55%, var(--color-cobalt-deep) 45%)"
@@ -49,6 +56,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <MobileCta />
     </>
   );
 }

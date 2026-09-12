@@ -94,7 +94,11 @@ export function Method() {
     <section id="metoda" className="px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-border bg-card">
         <Reveal>
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-8 py-6 sm:px-12">
+          {/* Na telefonie nagłówek i przełącznik nie mieszczą się obok siebie
+              (same etykiety zakładek to ~400px przy ~310px dostępnej
+              szerokości) — układają się więc w kolumnę, a zakładki zajmują
+              pełną szerokość w dwóch równych kolumnach. */}
+          <div className="flex flex-col items-stretch gap-4 border-b border-border px-5 py-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-12 sm:py-6">
             <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-cobalt-deep">
               <span aria-hidden="true" className="block h-px w-7 bg-cobalt-deep" />
               Metoda wspomagająca
@@ -104,7 +108,7 @@ export function Method() {
               <div
                 role="tablist"
                 aria-label="Wybierz metodę wspomagającą"
-                className="inline-flex gap-1 rounded-full bg-paper-dim p-1"
+                className="grid flex-1 grid-cols-2 gap-1 rounded-full bg-paper-dim p-1 sm:inline-flex sm:flex-none"
               >
                 {methods.map((m, i) => (
                   <button
@@ -113,7 +117,7 @@ export function Method() {
                     role="tab"
                     aria-selected={i === index}
                     onClick={() => go(i)}
-                    className={`min-h-11 rounded-full px-5 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt-deep focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
+                    className={`min-h-11 rounded-full px-3 py-2 text-sm font-semibold leading-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt-deep focus-visible:ring-offset-2 focus-visible:ring-offset-card sm:px-5 sm:text-base ${
                       i === index
                         ? "bg-cobalt-deep text-paper"
                         : "text-ink-soft hover:text-ink"
@@ -156,7 +160,7 @@ export function Method() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="grid gap-10 p-8 sm:p-12 lg:grid-cols-[0.85fr_1fr] lg:items-center lg:gap-20 lg:p-16"
+              className="grid gap-8 p-5 sm:gap-10 sm:p-12 lg:grid-cols-[0.85fr_1fr] lg:items-center lg:gap-20 lg:p-16"
             >
               {/* Zdjęcie z gabinetu na tle miękkiej poświaty w kolorach marki.
                   Ramka ma tę samą proporcję (5:4) co pliki źródłowe, więc
@@ -220,7 +224,10 @@ export function Method() {
           </AnimatePresence>
         </div>
 
-        <div className="flex items-center justify-center gap-2 pb-8">
+        {/* Kropki mają 10px wysokości, więc samo <button> byłoby dużo poniżej
+            minimum 44×44px dla palca — obszar dotyku daje przezroczysty
+            przycisk, a widoczną kropką jest span w środku. */}
+        <div className="flex items-center justify-center gap-1 pb-5 sm:pb-6">
           {methods.map((m, i) => (
             <button
               key={m.id}
@@ -228,10 +235,17 @@ export function Method() {
               aria-label={`Pokaż metodę: ${m.tab}`}
               aria-current={i === index}
               onClick={() => go(i)}
-              className={`h-2.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt-deep ${
-                i === index ? "w-7 bg-cobalt-deep" : "w-2.5 bg-border hover:bg-ink-soft/40"
-              }`}
-            />
+              className="group flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt-deep"
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-2.5 rounded-full transition-all ${
+                  i === index
+                    ? "w-7 bg-cobalt-deep"
+                    : "w-2.5 bg-border group-hover:bg-ink-soft/40"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

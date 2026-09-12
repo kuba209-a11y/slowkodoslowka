@@ -19,22 +19,24 @@ export function Footer() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-paper/50">
               Kontakt
             </p>
-            <ul className="mt-4 flex flex-col gap-3 text-sm">
+            {/* min-h-11 zamiast samej wysokości linii — linki w stopce miały
+                20px wysokości, czyli poniżej progu 44px dla palca. */}
+            <ul className="mt-2 flex flex-col text-sm">
               <li>
                 <a
                   href={business.phoneHref}
-                  className="flex items-center gap-2 hover:text-paper"
+                  className="inline-flex min-h-11 items-center gap-2 hover:text-paper"
                 >
-                  <Phone className="h-4 w-4 text-gold" strokeWidth={1.75} />
+                  <Phone className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.75} />
                   {business.phone}
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${business.email}`}
-                  className="flex items-center gap-2 hover:text-paper"
+                  className="inline-flex min-h-11 items-center gap-2 break-all hover:text-paper"
                 >
-                  <Mail className="h-4 w-4 text-gold" strokeWidth={1.75} />
+                  <Mail className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.75} />
                   {business.email}
                 </a>
               </li>
@@ -49,7 +51,7 @@ export function Footer() {
               href={business.mapsHref}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 flex items-start gap-2 text-sm hover:text-paper"
+              className="mt-3 flex min-h-11 items-start gap-2 py-1 text-sm hover:text-paper"
             >
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" strokeWidth={1.75} />
               <span>

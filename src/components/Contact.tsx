@@ -50,7 +50,7 @@ export function Contact() {
   }
 
   return (
-    <section id="kontakt" className="px-4 pt-16 pb-20 sm:px-6 sm:pt-[90px] sm:pb-28">
+    <section id="kontakt" className="px-4 pt-12 pb-14 sm:px-6 sm:pt-[90px] sm:pb-28">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-periwinkle px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-periwinkle-ink">
@@ -67,7 +67,7 @@ export function Contact() {
           </p>
         </div>
 
-        <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3">
+        <RevealGroup className="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-5">
           {quickActions.map((action) => (
             <RevealItem key={action.label}>
               <a
@@ -92,9 +92,9 @@ export function Contact() {
           ))}
         </RevealGroup>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+        <div className="mt-8 grid gap-6 sm:mt-10 sm:gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <Reveal>
-            <div className="rounded-[2rem] border border-border bg-card p-8">
+            <div className="rounded-[2rem] border border-border bg-card p-6 sm:p-8">
               <h3 className="font-display text-xl font-semibold text-ink">
                 Dane gabinetu
               </h3>
@@ -150,6 +150,8 @@ export function Contact() {
                     name="name"
                     type="text"
                     required
+                    autoComplete="name"
+                    enterKeyHint="next"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="min-h-14 rounded-2xl border border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
@@ -165,6 +167,11 @@ export function Contact() {
                     name="contact"
                     type="text"
                     required
+                    // Pole przyjmuje telefon albo e-mail — autouzupełnianie
+                    // numeru jest częstszym przypadkiem, a typ text nie blokuje
+                    // wpisania adresu.
+                    autoComplete="tel"
+                    enterKeyHint="next"
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
                     className="min-h-14 rounded-2xl border border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"

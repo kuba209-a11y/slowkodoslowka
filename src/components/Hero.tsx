@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Activity, ArrowUpRight, PlugZap } from "lucide-react";
+import { Activity, ArrowUpRight, Phone, PlugZap } from "lucide-react";
 import { stockPhotos } from "@/lib/images";
+import { business } from "@/lib/content";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
 // Mała, szara pszczółka — statyczna (bez animacji), "siedzi" w wybranym
@@ -108,8 +109,10 @@ export function Hero() {
       className="relative flex min-h-[calc(100dvh-var(--header-h))] items-center px-4 py-10 sm:px-6 sm:py-14"
     >
       {/* Faliste, przerywane linie w tle — pod tekstem i pod zdjęciami,
-          z pszczółkami frunącymi wzdłuż ścieżki. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          z pszczółkami frunącymi wzdłuż ścieżki. Ukryte na telefonach:
+          przy preserveAspectRatio="none" viewBox 1600px ściskany do ~350px
+          spłaszcza pszczółki do nieczytelnych kresek. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden sm:block">
         <WavyLine
           id="hero-wave-1"
           viewBoxHeight={170}
@@ -137,7 +140,10 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
-        <div className="relative mx-auto max-w-3xl text-center">
+        {/* Na telefonie cały blok jest wyrównany do lewej (odznaka wycentrowana
+            nad tekstem do lewej wyglądała jak przypadek); wycentrowanie odznaki
+            wraca dopiero na dużych ekranach, gdzie nagłówek wypełnia kolumnę. */}
+        <div className="relative mx-auto max-w-3xl text-left lg:text-center">
           {/* Delikatna, kręta ścieżka pod odznaką — odpowiednik "doodle" z referencji. */}
           <svg
             aria-hidden="true"
@@ -162,7 +168,10 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <h1 className="text-balance relative mt-7 text-left text-[100px] leading-[121px] tracking-tight text-ink">
+            {/* Skala płynna zamiast sztywnych 100px: na 375px daje ~34px
+                (mieści się w kolumnie), docelowe 100px osiąga ok. 1110px
+                szerokości — czyli desktop wygląda dokładnie jak wcześniej. */}
+            <h1 className="text-balance relative mt-6 text-left text-[clamp(2rem,9vw,6.25rem)] leading-[1.14] tracking-tight text-ink sm:mt-7 lg:leading-[1.21]">
               <span className="font-body font-semibold">Każde</span>{" "}
               <span className="font-accent italic">słowo</span>
               <br />
@@ -174,11 +183,35 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.16}>
-            <p className="mt-4 ml-[84px] text-left text-base leading-relaxed text-ink-soft sm:whitespace-nowrap">
+            {/* Wcięcie 84px (dosunięcie pod nagłówek) i wymuszenie jednej linii
+                mają sens dopiero przy docelowym, dużym nagłówku — na telefonie
+                i tablecie zjadałyby szerokość i wypychały tekst poza ekran. */}
+            <p className="mt-4 text-left text-base leading-relaxed text-ink-soft lg:ml-[84px] lg:whitespace-nowrap">
               Diagnoza i terapia mowy w przyjaznym gabinecie przy ul. Paderewskiego w Rzeszowie.
             </p>
           </Reveal>
 
+          {/* Główne CTA w hero — tylko do rozmiaru tabletu. Od lg te same dwie
+              akcje są stale widoczne w headerze, więc tam byłyby duplikatem;
+              poniżej lg header chowa je pod hamburgerem i bez tego bloku
+              użytkownik telefonu nie ma żadnej drogi do kontaktu na starcie. */}
+          <Reveal delay={0.24}>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center lg:hidden">
+              <a
+                href="#kontakt"
+                className="inline-flex min-h-14 items-center justify-center rounded-full bg-ink px-7 text-base font-semibold text-paper transition-transform active:scale-[0.98]"
+              >
+                Umów konsultację
+              </a>
+              <a
+                href={business.phoneHref}
+                className="inline-flex min-h-14 items-center justify-center gap-2.5 rounded-full border border-border bg-card px-7 text-base font-semibold text-ink transition-transform active:scale-[0.98]"
+              >
+                <Phone className="h-4.5 w-4.5 text-cobalt-deep" strokeWidth={2.2} />
+                {business.phone}
+              </a>
+            </div>
+          </Reveal>
         </div>
 
         <div className="relative mt-16 sm:mt-20">
@@ -202,9 +235,13 @@ export function Hero() {
             #Komunikacja
           </span>
 
+          {/* Na telefonie kafelki układają się w kolumnę, a medaliony wystają
+              nad krawędź karty nawet o 56px (+4px obwódki) — przy gap-5
+              nachodziły na kartę powyżej. Stąd duży odstęp i górny padding
+              tylko w układzie kolumnowym. */}
           <RevealGroup
             id="dla-kogo"
-            className="grid gap-5 pt-8 sm:grid-cols-3 sm:items-end sm:pt-10"
+            className="grid gap-16 pt-14 sm:grid-cols-3 sm:items-end sm:gap-5 sm:pt-10"
           >
             {/* Kafelek — Terapia miofunkcyjna (MFT): niższy, ikona w medalionie
                 + dekoracyjna plama dla równowagi z sąsiednimi kafelkami.
@@ -212,7 +249,7 @@ export function Hero() {
             <RevealItem>
               <a
                 href="#oferta"
-                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-lavender p-6 pt-14 transition-transform hover:-translate-y-1"
+                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-lavender p-6 pt-14 transition-transform hover:-translate-y-1 active:scale-[0.99]"
               >
                 <Blob
                   className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 -rotate-12 text-lavender-deep/25"
@@ -245,9 +282,12 @@ export function Hero() {
             <RevealItem>
               <a
                 href="#oferta"
-                className="group relative flex min-h-[18.7rem] flex-col overflow-visible rounded-[2rem] bg-cobalt p-6 pt-16 transition-transform hover:-translate-y-1"
+                className="group relative flex min-h-[15rem] flex-col overflow-visible rounded-[2rem] bg-cobalt p-6 pt-16 transition-transform hover:-translate-y-1 sm:min-h-[18.7rem]"
               >
-                <div className="absolute -top-14 left-1/2 h-28 w-28 shrink-0 -translate-x-1/2 overflow-hidden rounded-full ring-4 ring-paper">
+                {/* W kolumnie (telefon) medalion i treść trzymają się lewej —
+                    tak jak w sąsiednich kafelkach; wyśrodkowanie ma sens
+                    dopiero w układzie trzech kolumn obok siebie. */}
+                <div className="absolute -top-14 left-6 h-28 w-28 shrink-0 overflow-hidden rounded-full ring-4 ring-paper sm:left-1/2 sm:-translate-x-1/2">
                   <Image
                     src={stockPhotos.heroGirl.src}
                     alt={stockPhotos.heroGirl.alt}
@@ -262,7 +302,7 @@ export function Hero() {
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </div>
-                <div className="mt-auto pt-6 text-center">
+                <div className="mt-auto pt-6 text-left sm:text-center">
                   <span className="rounded-full bg-card/70 px-3.5 py-1.5 text-sm font-semibold text-cobalt-ink">
                     Każdy wiek
                   </span>
@@ -282,7 +322,7 @@ export function Hero() {
             <RevealItem>
               <a
                 href="#oferta"
-                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-gold p-6 pt-11 transition-transform hover:-translate-y-1"
+                className="group relative flex min-h-[11rem] flex-col overflow-visible rounded-[2rem] bg-gold p-6 pt-11 transition-transform hover:-translate-y-1 active:scale-[0.99]"
               >
                 <Blob
                   className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-12 text-gold-deep/35"

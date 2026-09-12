@@ -148,11 +148,19 @@ export function WireDivider({
   // kształtem — poprzednia rasteryzacja cienia nie zdąża się wyczyścić.
   // transform jest kompozytowany na GPU i nie przemalowuje filtra przy
   // każdym przesunięciu.
+  // Mierzymy też wysokość: na telefonie pasek jest niższy niż wirtualne 200px
+  // viewBoxa (oszczędność ~320px scrolla na czterech dzielnikach), a SVG
+  // skaluje się przez preserveAspectRatio="none". Bez przeliczenia Y koralik
+  // jechałby obok drutu, a nie po nim.
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(H);
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const update = () => setWidth(el.clientWidth);
+    const update = () => {
+      setWidth(el.clientWidth);
+      setHeight(el.clientHeight);
+    };
     update();
     const observer = new ResizeObserver(update);
     observer.observe(el);
@@ -189,7 +197,7 @@ export function WireDivider({
     reverse ? [W, 0] : [0, W]
   );
   const xBase = useTransform(xUnits, (v) => (v / W) * width);
-  const yBase = useTransform(xUnits, wireY);
+  const yBase = useTransform(xUnits, (v) => wireY(v) * (height / H));
   const beadX = useTransform(xBase, (v) => v - BEAD_SIZE / 2);
   const beadY = useTransform(yBase, (v) => v - BEAD_SIZE / 2);
   const glowX = useTransform(xBase, (v) => v - GLOW_SIZE / 2);
@@ -214,7 +222,7 @@ export function WireDivider({
     <div
       ref={ref}
       aria-hidden="true"
-      className={`relative -mb-6 h-[200px] w-full overflow-hidden sm:-mb-8 ${className}`}
+      className={`relative -mb-6 h-[120px] w-full overflow-hidden sm:-mb-8 sm:h-[200px] ${className}`}
     >
       <svg
         viewBox={`0 0 ${W} ${H}`}

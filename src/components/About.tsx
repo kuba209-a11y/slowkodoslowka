@@ -34,10 +34,12 @@ const points = [
 
 export function About() {
   return (
-    <section id="o-mnie" className="px-4 py-20 sm:px-6 sm:py-28">
+    <section id="o-mnie" className="px-4 py-14 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14">
-          <Reveal className="relative mx-auto w-full max-w-sm lg:mx-0">
+          {/* Kadr 4:5 przy pełnych 384px zajmowałby na telefonie 480px
+              wysokości — a to wciąż tylko placeholder na zdjęcie. */}
+          <Reveal className="relative mx-auto w-full max-w-[15rem] sm:max-w-sm lg:mx-0">
             <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 overflow-hidden rounded-[2.5rem] border-2 border-dashed border-periwinkle bg-gold/60 px-6 text-center">
               <ImageIcon aria-hidden="true" className="h-10 w-10 text-periwinkle-ink/60" strokeWidth={1.5} />
               <span className="font-display text-sm font-semibold text-periwinkle-ink/70">
@@ -92,7 +94,7 @@ export function About() {
           </div>
         </div>
 
-        <RevealItem className="mt-10 rounded-[2rem] border border-border bg-card p-8 sm:p-10">
+        <RevealItem className="mt-10 rounded-[2rem] border border-border bg-card p-6 sm:p-10">
           <h3 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             W swojej pracy zajmuję się:
           </h3>

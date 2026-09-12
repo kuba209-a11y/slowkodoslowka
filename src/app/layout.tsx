@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -51,6 +51,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+// viewportFit: "cover" jest wymagane, żeby env(safe-area-inset-*) zwracało
+// realne wartości na iPhone'ach z wcięciem — z tego korzysta przyklejony
+// pasek CTA na dole ekranu. themeColor barwi pasek adresu w Chrome/Safari
+// na kolor tła strony, zamiast domyślnej bieli.
+export const viewport: Viewport = {
+  themeColor: "#FCF6E7",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
