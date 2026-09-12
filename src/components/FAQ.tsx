@@ -38,8 +38,8 @@ export function FAQ() {
             Najczęstsze pytania
           </span>
           <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-            Warto wiedzieć{" "}
-            <span className="font-accent text-cobalt-deep">przed wizytą</span>
+            Co warto wiedzieć{" "}
+            <span className="font-accent text-cobalt-deep">przed wizytą?</span>
           </h2>
         </div>
 

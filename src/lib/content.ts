@@ -1,4 +1,4 @@
-// Wszystkie dane firmowe / treści w jednym miejscu — łatwo podmienić przy aktualizacji.
+// Wszystkie dane firmowe / treści w jednym miejscu - łatwo podmienić przy aktualizacji.
 
 export const business = {
   name: "Słówko do słówka",
@@ -16,21 +16,27 @@ export const business = {
   bookingHref: "#kontakt",
 };
 
+// TODO: placeholder - podmienić na rzeczywiste godziny przyjęć, gdy zostaną potwierdzone.
+export const openingHours = [
+  { label: "Poniedziałek - piątek", value: "9:00 - 18:00" },
+  { label: "Sobota - niedziela", value: "po wcześniejszym uzgodnieniu" },
+];
+
 export const pricing = [
   {
-    group: "Dzieci i młodzież",
+    group: "Dzieci i młodzież",
     items: [
-      { label: "Pierwsza wizyta — diagnoza i konsultacja", price: "160 zł" },
+      { label: "Pierwsza wizyta - diagnoza i konsultacja", price: "160 zł" },
       { label: "Terapia / ćwiczenia (45 min)", price: "140 zł" },
-      { label: "Terapia z elektrostymulacją", price: "160 zł" },
+      { label: "Terapia z elektrostymulacją", price: "160 zł" },
     ],
   },
   {
     group: "Osoby dorosłe",
     items: [
-      { label: "Pierwsza wizyta — diagnoza i konsultacja", price: "160 zł" },
+      { label: "Pierwsza wizyta - diagnoza i konsultacja", price: "160 zł" },
       { label: "Terapia / ćwiczenia (45 min)", price: "140 zł" },
-      { label: "Terapia z elektrostymulacją", price: "160 zł" },
+      { label: "Terapia z elektrostymulacją", price: "160 zł" },
     ],
   },
   {
@@ -45,7 +51,7 @@ export const pricing = [
     items: [
       { label: "Pojedynczy zabieg", price: "50 zł" },
       { label: "Pakiet 10 zabiegów", price: "450 zł" },
-      { label: "Terapia logopedyczna + zabieg elektrostymulacji", price: "160 zł" },
+      { label: "Terapia logopedyczna oraz zabieg elektrostymulacji", price: "160 zł" },
     ],
   },
 ];
@@ -59,22 +65,22 @@ export const audiences = [
   {
     title: "Osoby dorosłe",
     description:
-      "Terapia afazji po udarze — z możliwością dojazdu do pacjenta, korekcja wad wymowy oraz wsparcie w powrocie do sprawnej komunikacji.",
+      "Terapia afazji po udarze - z możliwością dojazdu do pacjenta, korekcja wad wymowy oraz wsparcie w powrocie do sprawnej komunikacji.",
   },
 ];
 
 export const faq = [
   {
     q: "Od jakiego wieku warto zgłosić się do logopedy?",
-    a: "Im wcześniej, tym łatwiej wyrównać opóźnienia rozwoju mowy — pierwszą konsultację warto rozważyć już u kilkuletniego dziecka. Przyjmuję jednak pacjentów w każdym wieku: dzieci, młodzież i dorosłych, również po udarze.",
+    a: "Im wcześniej, tym łatwiej wyrównać opóźnienia rozwoju mowy - pierwszą konsultację warto rozważyć już u kilkuletniego dziecka. Przyjmuję jednak pacjentów w każdym wieku: dzieci, młodzież i dorosłych, również po udarze.",
   },
   {
     q: "Jak wygląda pierwsza wizyta?",
-    a: "Pierwsze spotkanie to wnikliwy wywiad oraz diagnoza logopedyczna — poznaję historię i indywidualne potrzeby pacjenta, aby dobrać najskuteczniejsze metody terapii.",
+    a: "Pierwsze spotkanie to wnikliwy wywiad oraz diagnoza logopedyczna - poznaję historię i indywidualne potrzeby pacjenta, aby dobrać najskuteczniejsze metody terapii.",
   },
   {
     q: "Ile trwa terapia i jak często się odbywa?",
-    a: "Pojedyncze spotkanie trwa 45 minut. Częstotliwość i długość całego procesu ustalam indywidualnie po diagnozie — zależy od wieku, rodzaju zaburzenia i tempa postępów.",
+    a: "Pojedyncze spotkanie trwa 45 minut. Częstotliwość i długość całego procesu ustalam indywidualnie po diagnozie - zależy od wieku, rodzaju zaburzenia i tempa postępów.",
   },
   {
     q: "Czym jest elektrostymulacja i dla kogo jest wskazana?",
@@ -82,11 +88,11 @@ export const faq = [
   },
   {
     q: "Czym jest terapia miofunkcyjna (MFT) i dla kogo jest wskazana?",
-    a: "To terapia usprawniająca pracę mięśni twarzy, języka i żuchwy, przywracająca prawidłowe wzorce oddychania, żucia i połykania. Polecana dzieciom i dorosłym z oddychaniem przez usta, nieprawidłowym połykaniem czy wadami zgryzu — często we współpracy z ortodontą.",
+    a: "To terapia usprawniająca pracę mięśni twarzy, języka i żuchwy, przywracająca prawidłowe wzorce oddychania, żucia i połykania. Polecana dzieciom i dorosłym z oddychaniem przez usta, nieprawidłowym połykaniem czy wadami zgryzu - często we współpracy z ortodontą.",
   },
   {
     q: "Czy do wizyty potrzebne jest skierowanie?",
-    a: "Nie, gabinet działa prywatnie — nie potrzeba skierowania od lekarza. Wystarczy umówić termin telefonicznie lub przez formularz kontaktowy.",
+    a: "Nie, gabinet działa prywatnie - nie potrzeba skierowania od lekarza. Wystarczy umówić termin telefonicznie lub przez formularz kontaktowy.",
   },
   {
     q: "Czy możliwy jest dojazd do pacjenta?",

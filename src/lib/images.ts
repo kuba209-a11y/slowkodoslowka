@@ -37,3 +37,23 @@ export const stockPhotos = {
     credit: "Unsplash",
   },
 };
+
+// Prawdziwe zdjęcia z gabinetu (dostarczone przez klienta) — sekcja "Metoda
+// wspomagająca". Oryginały są poziome i mają obie osoby rozstawione blisko
+// krawędzi kadru, więc pliki tutaj to lekkie przycięcie do 5:4 — wystarczające,
+// by były bliżej pionu, ale wciąż z obiema postaciami i całą sceną w kadrze
+// (przycięte ręcznie po weryfikacji, bo automatyczna detekcja "attention" w
+// sharpie gubiła drugą osobę). Ramka w Method.tsx ma tę samą proporcję, więc
+// zdjęcie wypełnia ją bez zniekształceń. Nazwy plików mają sufiks -v2, bo
+// Next.js/przeglądarka silnie cache'ują /images/* — zmiana nazwy przy kolejnej
+// podmianie kadru jest najprostszym sposobem na wymuszenie świeżego pliku.
+export const clinicPhotos = {
+  mft: {
+    src: "/images/terapia-mft-v2.webp",
+    alt: "Terapeutka demonstruje dziewczynce aparat do terapii miofunkcyjnej w gabinecie",
+  },
+  elektrostymulacja: {
+    src: "/images/elektrostymulacja-v2.webp",
+    alt: "Terapeutka podłącza elektrody elektrostymulatora na szyi chłopca w gabinecie",
+  },
+};

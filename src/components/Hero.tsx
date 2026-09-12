@@ -181,11 +181,11 @@ export function Hero() {
 
         </div>
 
-        <div className="relative mt-10 sm:mt-12">
+        <div className="relative mt-16 sm:mt-20">
           {/* Naklejki-etykiety porozrzucane wokół kafelków, pod różnymi kątami. */}
           <span
             aria-hidden="true"
-            className="absolute top-[72px] left-36 z-20 hidden -rotate-6 rounded-full bg-periwinkle-deep px-5 py-2.5 text-base font-semibold text-paper shadow-md lg:inline-flex"
+            className="absolute top-14 left-36 z-20 hidden -rotate-6 rounded-full bg-periwinkle-deep px-5 py-2.5 text-base font-semibold text-paper shadow-md lg:inline-flex"
           >
             #Terapia
           </span>
@@ -226,13 +226,13 @@ export function Hero() {
                   </span>
                 </div>
                 <div className="relative mt-auto pt-6">
-                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-lavender-ink">
+                  <span className="rounded-full bg-card/70 px-3.5 py-1.5 text-sm font-semibold text-lavender-ink">
                     Terapia miofunkcyjna
                   </span>
-                  <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-lavender-ink sm:text-[2.75rem]">
+                  <h3 className="mt-4 font-display text-4xl font-bold leading-[0.95] tracking-tight text-lavender-ink sm:text-[2.75rem]">
                     MFT
                   </h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-lavender-ink opacity-75">
+                  <p className="mt-4 text-base leading-relaxed text-lavender-ink opacity-75">
                     Dla żucia, mowy, oddychania.
                   </p>
                 </div>
@@ -263,13 +263,13 @@ export function Hero() {
                   </span>
                 </div>
                 <div className="mt-auto pt-6 text-center">
-                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-cobalt-ink">
+                  <span className="rounded-full bg-card/70 px-3.5 py-1.5 text-sm font-semibold text-cobalt-ink">
                     Każdy wiek
                   </span>
-                  <h3 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight text-cobalt-ink sm:text-[2.75rem]">
+                  <h3 className="mt-4 font-display text-4xl font-bold leading-[0.95] tracking-tight text-cobalt-ink sm:text-[2.75rem]">
                     Dorośli i dzieci
                   </h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-cobalt-ink opacity-75">
+                  <p className="mt-4 text-base leading-relaxed text-cobalt-ink opacity-75">
                     Wady wymowy i opóźniony rozwój mowy u dzieci, powrót po udarze u dorosłych.
                   </p>
                 </div>
@@ -296,13 +296,13 @@ export function Hero() {
                   </span>
                 </div>
                 <div className="relative mt-auto pt-6">
-                  <span className="rounded-full bg-card/70 px-3 py-1 text-xs font-semibold text-gold-ink">
+                  <span className="rounded-full bg-card/70 px-3.5 py-1.5 text-sm font-semibold text-gold-ink">
                     Zabieg
                   </span>
-                  <h3 className="mt-3 font-display text-[2.15rem] font-bold leading-[0.95] tracking-tight text-gold-ink sm:text-4xl">
+                  <h3 className="mt-4 font-display text-[2.15rem] font-bold leading-[0.95] tracking-tight text-gold-ink sm:text-4xl">
                     Elektrostymulacja
                   </h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-gold-ink opacity-75">
+                  <p className="mt-4 text-base leading-relaxed text-gold-ink opacity-75">
                     Wzmacnianie mięśni ustno-twarzowych.
                   </p>
                 </div>

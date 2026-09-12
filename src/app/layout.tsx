@@ -22,11 +22,11 @@ const siteUrl = "https://slowkodoslowka.pl";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Słówko do słówka — terapia logopedyczna Rzeszów | Edyta Wierzbińska",
+    default: "Słówko do słówka - terapia logopedyczna Rzeszów | Edyta Wierzbińska",
     template: "%s | Słówko do słówka",
   },
   description:
-    "Gabinet logopedyczny w Rzeszowie. Diagnoza i terapia mowy dzieci, młodzieży i dorosłych — wady wymowy, opóźniony rozwój mowy, afazja po udarze, elektrostymulacja. Umów wizytę.",
+    "Gabinet logopedyczny w Rzeszowie. Diagnoza i terapia mowy dzieci, młodzieży i dorosłych - wady wymowy, opóźniony rozwój mowy, afazja po udarze, elektrostymulacja. Umów wizytę.",
   keywords: [
     "logopeda Rzeszów",
     "terapia logopedyczna",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Edyta Wierzbińska" }],
   openGraph: {
-    title: "Słówko do słówka — terapia logopedyczna Rzeszów",
+    title: "Słówko do słówka - terapia logopedyczna Rzeszów",
     description:
       "Diagnoza i terapia mowy dzieci, młodzieży i dorosłych w Rzeszowie. Indywidualne podejście, metoda elektrostymulacji, dojazd do pacjenta.",
     url: siteUrl,

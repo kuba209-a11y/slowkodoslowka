@@ -8,44 +8,60 @@ const styles = [
   { bg: "bg-gold", ink: "text-gold-ink", chip: "bg-card/70" },
 ];
 
+// Etykiety z dopiskiem czasu trwania (np. "(45 min)") łamały się w połowie
+// ("min" spadało do kolejnej linii) - wydzielamy ten fragment na osobny,
+// nierozdzielny wiersz.
+function renderLabel(label: string) {
+  const match = label.match(/^(.*) (\(\d+ min\))$/);
+  if (!match) return label;
+  const [, main, duration] = match;
+  return (
+    <>
+      {main}
+      <br />
+      <span className="whitespace-nowrap">{duration}</span>
+    </>
+  );
+}
+
 export function Offer() {
   return (
     <section id="oferta" className="px-4 py-20 sm:px-6 sm:py-28">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <div className="max-w-2xl">
           <span className="inline-flex items-center rounded-full bg-gold px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-gold-ink">
-            Oferta i cennik
+            Oferta i&nbsp;cennik
           </span>
           <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
             Przejrzyste zasady,{" "}
             <span className="font-accent text-cobalt-deep">bez niespodzianek</span>
           </h2>
-          <p className="mt-4 text-sm text-ink-soft sm:whitespace-nowrap">
+          <p className="mt-4 text-base text-ink-soft sm:whitespace-nowrap">
             Dokładny plan terapii i liczbę spotkań ustalam indywidualnie po pierwszej wizycie diagnostycznej.
           </p>
         </div>
 
-        <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {pricing.map((group, i) => {
             const s = styles[i % styles.length];
             return (
               <RevealItem
                 key={group.group}
-                className={`flex flex-col rounded-[2rem] ${s.bg} p-7`}
+                className={`flex flex-col rounded-[2rem] ${s.bg} p-8`}
               >
-                <h3 className={`font-display text-xl font-semibold ${s.ink}`}>
+                <h3 className={`font-display text-2xl font-semibold ${s.ink}`}>
                   {group.group}
                 </h3>
-                <ul className="mt-6 flex flex-1 flex-col gap-3">
+                <ul className="mt-7 flex flex-1 flex-col gap-4">
                   {group.items.map((item) => (
                     <li
                       key={item.label}
-                      className={`flex items-baseline justify-between gap-4 rounded-xl ${s.chip} px-4 py-3`}
+                      className={`flex flex-col gap-1.5 rounded-xl ${s.chip} px-5 py-4`}
                     >
-                      <span className={`text-sm leading-snug ${s.ink} opacity-90`}>
-                        {item.label}
+                      <span className={`text-base leading-snug ${s.ink} opacity-90`}>
+                        {renderLabel(item.label)}
                       </span>
-                      <span className={`whitespace-nowrap font-display text-lg font-semibold ${s.ink}`}>
+                      <span className={`font-display text-xl font-semibold ${s.ink}`}>
                         {item.price}
                       </span>
                     </li>
@@ -59,11 +75,11 @@ export function Offer() {
         <Reveal delay={0.1}>
           <div className="mt-6 flex flex-col items-start justify-between gap-5 rounded-[2rem] bg-ink p-8 text-paper sm:flex-row sm:items-center sm:p-10">
             <div>
-              <h3 className="font-display text-xl font-semibold">
+              <h3 className="font-display text-2xl font-semibold">
                 Gotowi na pierwszy krok?
               </h3>
-              <p className="mt-1 text-sm text-paper/70">
-                Umów diagnozę i konsultację — poznamy potrzeby i zaplanujemy
+              <p className="mt-1.5 text-base text-paper/70">
+                Umów diagnozę i konsultację - poznamy potrzeby i zaplanujemy
                 dalszą terapię.
               </p>
             </div>

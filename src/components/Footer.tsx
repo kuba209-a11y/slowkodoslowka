@@ -9,7 +9,7 @@ export function Footer() {
         <div className="max-w-sm">
           <Logo className="[&_span:first-child]:text-paper [&_span:last-child]:text-paper/60" />
           <p className="mt-4 text-sm leading-relaxed text-paper/60">
-            Gabinet logopedyczny w Rzeszowie — diagnoza i terapia mowy dzieci,
+            Gabinet logopedyczny w Rzeszowie - diagnoza i terapia mowy dzieci,
             młodzieży i dorosłych.
           </p>
         </div>

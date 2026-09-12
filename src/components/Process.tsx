@@ -6,7 +6,7 @@ const steps = [
     bg: "bg-cobalt",
     ink: "text-cobalt-ink",
     title: "Wywiad i diagnoza",
-    text: "Wnikliwy wywiad oraz analiza indywidualnych potrzeb pacjenta — podstawa doboru dalszych metod.",
+    text: "Wnikliwy wywiad oraz analiza indywidualnych potrzeb pacjenta - podstawa doboru dalszych metod.",
   },
   {
     number: "02",

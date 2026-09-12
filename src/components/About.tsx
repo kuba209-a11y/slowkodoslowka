@@ -2,10 +2,10 @@ import { Car, GraduationCap, HeartHandshake, ImageIcon, Target } from "lucide-re
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
 const areas = [
-  "Diagnoza i terapia zaburzeń mowy u dzieci i młodzieży",
-  "Korekcja wad wymowy u dzieci i młodzieży",
-  "Terapia osób z afazją po udarze (z dojazdem do pacjenta)",
-  "Zabiegi elektrostymulacji mięśni twarzy",
+  "Diagnozą i terapią zaburzeń mowy u dzieci i młodzieży",
+  "Korekcją wad wymowy u dzieci i młodzieży",
+  "Terapią osób z afazją po udarze (z dojazdem do pacjenta)",
+  "Zabiegami elektrostymulacji mięśni twarzy",
 ];
 
 const points = [
@@ -57,7 +57,7 @@ export function About() {
               O mnie
             </span>
             <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-              Poznajmy się —{" "}
+              Poznajmy się -{" "}
               <span className="font-accent text-cobalt-deep">jestem Edyta</span>
             </h2>
             <p className="mt-5 leading-relaxed text-ink-soft">
@@ -70,7 +70,7 @@ export function About() {
               W swojej pracy wykorzystuję metodę elektrostymulacji,
               wspomagającą pobudzanie i wzmacnianie mięśni sfery
               ustno-twarzowej. Dbam o to, aby pacjent czuł się
-              bezpiecznie i komfortowo — to fundament trwałych efektów terapii.
+              bezpiecznie i komfortowo - to fundament trwałych efektów terapii.
             </p>
 
             <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -106,7 +106,7 @@ export function About() {
           </ul>
           <p className="mt-6 flex items-start gap-2 text-sm text-ink-soft">
             <Car className="mt-0.5 h-4 w-4 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
-            Możliwy jest dojazd do pacjenta.
+            Istnieje możliwość dojazdu do pacjenta.
           </p>
         </RevealItem>
       </div>

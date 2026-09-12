@@ -1,8 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import { business } from "@/lib/content";
+import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { business, openingHours } from "@/lib/content";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
 const quickActions = [
@@ -41,7 +41,7 @@ export function Contact() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const subject = encodeURIComponent(
-      `Zapytanie ze strony — ${name || "Pacjent"}`
+      `Zapytanie ze strony - ${name || "Pacjent"}`
     );
     const body = encodeURIComponent(
       `Imię i nazwisko: ${name}\nTelefon / e-mail: ${contact}\n\nWiadomość:\n${message}`
@@ -51,7 +51,7 @@ export function Contact() {
 
   return (
     <section id="kontakt" className="px-4 pt-16 pb-20 sm:px-6 sm:pt-[90px] sm:pb-28">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-periwinkle px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-periwinkle-ink">
             <MessageCircle className="h-3.5 w-3.5" />
@@ -63,27 +63,27 @@ export function Contact() {
           </h2>
           <p className="mx-auto mt-3 max-w-lg leading-relaxed text-ink-soft">
             Umów pierwszą wizytę diagnostyczną lub zapytaj o szczegóły terapii
-            — odpiszę tak szybko, jak to możliwe.
+            - odpiszę tak szybko, jak to możliwe.
           </p>
         </div>
 
-        <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-3">
+        <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3">
           {quickActions.map((action) => (
             <RevealItem key={action.label}>
               <a
                 href={action.href}
                 target={action.external ? "_blank" : undefined}
                 rel={action.external ? "noreferrer" : undefined}
-                className={`flex min-h-16 items-center gap-3 rounded-full ${action.bg} px-5 transition-transform hover:-translate-y-0.5`}
+                className={`flex min-h-20 items-center gap-4 rounded-full ${action.bg} px-6 transition-transform hover:-translate-y-0.5`}
               >
-                <span className={`flex h-10 w-10 items-center justify-center rounded-full bg-card/70 ${action.ink}`}>
-                  <action.icon className="h-5 w-5" strokeWidth={1.75} />
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-card/70 ${action.ink}`}>
+                  <action.icon className="h-6 w-6" strokeWidth={1.75} />
                 </span>
                 <span>
-                  <span className={`block text-sm font-semibold ${action.ink}`}>
+                  <span className={`block text-base font-semibold ${action.ink}`}>
                     {action.label}
                   </span>
-                  <span className={`block text-xs ${action.ink} opacity-90`}>
+                  <span className={`block text-sm ${action.ink} opacity-90`}>
                     {action.sub}
                   </span>
                 </span>
@@ -94,26 +94,43 @@ export function Contact() {
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <Reveal>
-            <div className="rounded-[2rem] border border-border bg-card p-7">
-              <h3 className="font-display text-lg font-semibold text-ink">
+            <div className="rounded-[2rem] border border-border bg-card p-8">
+              <h3 className="font-display text-xl font-semibold text-ink">
                 Dane gabinetu
               </h3>
-              <ul className="mt-5 flex flex-col gap-4 text-sm">
+              <ul className="mt-6 flex flex-col gap-5 text-base">
                 <li className="flex items-start gap-3">
-                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
                   <span className="text-ink-soft">{business.phone}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
+                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
                   <span className="break-all text-ink-soft">{business.email}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
                   <span className="text-ink-soft">
                     {business.addressLine1}, {business.addressLine2}
                   </span>
                 </li>
               </ul>
+
+              <div className="mt-6 border-t border-border pt-6">
+                <h4 className="text-sm font-semibold uppercase tracking-[0.1em] text-ink-soft/70">
+                  Godziny przyjęć
+                </h4>
+                <ul className="mt-4 flex flex-col gap-3 text-base">
+                  {openingHours.map((slot) => (
+                    <li key={slot.label} className="flex items-start gap-3">
+                      <Clock className="mt-0.5 h-5 w-5 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
+                      <span className="text-ink-soft">
+                        <span className="font-medium text-ink">{slot.label}:</span>{" "}
+                        {slot.value}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </Reveal>
 
@@ -135,7 +152,7 @@ export function Contact() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="min-h-12 rounded-2xl border border-border bg-paper-dim px-4 text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
+                    className="min-h-14 rounded-2xl border border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
                     placeholder="Jan Kowalski"
                   />
                 </div>
@@ -150,7 +167,7 @@ export function Contact() {
                     required
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
-                    className="min-h-12 rounded-2xl border border-border bg-paper-dim px-4 text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
+                    className="min-h-14 rounded-2xl border border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
                     placeholder="500 000 000 / jan@przyklad.pl"
                   />
                 </div>
@@ -167,19 +184,19 @@ export function Contact() {
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="rounded-2xl border border-border bg-paper-dim px-4 py-3 text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
+                  className="rounded-2xl border border-border bg-paper-dim px-4 py-3.5 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
                   placeholder="Np. Chciałbym/łabym umówić pierwszą wizytę diagnostyczną dla dziecka..."
                 />
               </div>
 
-              <p className="mt-3 text-xs text-ink-soft">
-                Po kliknięciu „Wyślij” otworzy się Twój program pocztowy z
+              <p className="mt-3 text-sm text-ink-soft">
+                Po kliknięciu „Wyślij” otworzy się Twój program pocztowy z{" "}
                 gotową wiadomością do {business.email}.
               </p>
 
               <button
                 type="submit"
-                className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-ink px-7 text-base font-semibold text-paper transition-transform hover:-translate-y-0.5 sm:w-auto"
+                className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-ink px-7 text-base font-semibold text-paper transition-transform hover:-translate-y-0.5 sm:w-auto"
               >
                 Wyślij wiadomość
               </button>
