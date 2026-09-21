@@ -7,7 +7,6 @@ import { Offer } from "@/components/Offer";
 import { FAQ } from "@/components/FAQ";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { MobileCta } from "@/components/MobileCta";
 import { WireDivider } from "@/components/WireDivider";
 
 export default function Home() {
@@ -26,6 +25,10 @@ export default function Home() {
           color="color-mix(in srgb, var(--color-cobalt) 55%, var(--color-cobalt-deep) 45%)"
           beadColor="var(--color-cobalt-deep)"
           shape="circle"
+          // Na telefonie sama linia siedzi ~33px pod górną krawędzią tego
+          // paska (SVG ma pustą górę) — podciągamy go w dół hero, żeby
+          // odstęp od ostatniego elementu hero nie był dodatkowo powiększony.
+          className="-mt-6 sm:mt-0"
         />
         <About />
         <WireDivider
@@ -56,7 +59,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <MobileCta />
     </>
   );
 }

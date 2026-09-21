@@ -62,12 +62,14 @@ export function RevealGroup({
 export function RevealItem({
   children,
   className,
+  onClick,
 }: {
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }) {
   return (
-    <motion.div variants={variants} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} className={className}>
+    <motion.div variants={variants} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} className={className} onClick={onClick}>
       {children}
     </motion.div>
   );

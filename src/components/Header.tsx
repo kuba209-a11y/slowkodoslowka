@@ -59,16 +59,10 @@ export function Header() {
           </a>
         </div>
 
-        {/* Na telefonie telefon do gabinetu musi być na jedno tapnięcie —
-            bez wchodzenia w menu. Obie kontrolki mają 44×44px i 8px odstępu. */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <a
-            href={business.phoneHref}
-            aria-label={`Zadzwoń: ${business.phone}`}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-cobalt-deep text-paper transition-transform active:scale-95"
-          >
-            <Phone className="h-5 w-5" strokeWidth={2.2} />
-          </a>
+        {/* Na telefonie "Zadzwoń" jest stale pod ręką (w hero, a po
+            przewinięciu w pasku na dole — HeroCta), więc w headerze zostaje
+            samo menu. */}
+        <div className="flex items-center lg:hidden">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

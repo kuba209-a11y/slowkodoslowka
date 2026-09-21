@@ -1,3 +1,4 @@
+import { ProcessStepsMobile } from "./ProcessStepsMobile";
 import { RevealGroup, RevealItem } from "./Reveal";
 
 const steps = [
@@ -38,7 +39,11 @@ export function Process() {
           </h2>
         </div>
 
-        <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-3">
+        {/* Telefon: pionowa oś kroków z rozwijanymi opisami. */}
+        <ProcessStepsMobile steps={steps} />
+
+        {/* Od sm (tablet i desktop): dotychczasowe trzy karty obok siebie. */}
+        <RevealGroup className="mt-12 hidden gap-6 sm:grid sm:grid-cols-3">
           {steps.map((step) => (
             <RevealItem
               key={step.number}

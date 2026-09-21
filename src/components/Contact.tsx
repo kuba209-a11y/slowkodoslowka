@@ -67,23 +67,27 @@ export function Contact() {
           </p>
         </div>
 
-        <RevealGroup className="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-5">
+        {/* Telefon: trzy pigułki po 80px jedna pod drugą (~260px) zamieniają się
+            w rząd trzech kafelków ikona + etykieta. Numer, e-mail i adres i tak
+            są wypisane zaraz niżej w "Dane gabinetu", więc podpisy pod
+            etykietami na telefonie znikają. Warianty max-sm: — od sm bez zmian. */}
+        <RevealGroup className="mt-8 grid gap-3 max-sm:mt-6 max-sm:grid-cols-3 max-sm:gap-2.5 sm:grid-cols-3 sm:gap-5">
           {quickActions.map((action) => (
             <RevealItem key={action.label}>
               <a
                 href={action.href}
                 target={action.external ? "_blank" : undefined}
                 rel={action.external ? "noreferrer" : undefined}
-                className={`flex min-h-20 items-center gap-4 rounded-full ${action.bg} px-6 transition-transform hover:-translate-y-0.5`}
+                className={`flex min-h-20 items-center gap-4 rounded-full ${action.bg} px-6 transition-transform hover:-translate-y-0.5 max-sm:min-h-0 max-sm:flex-col max-sm:justify-center max-sm:gap-1.5 max-sm:rounded-[1.25rem] max-sm:px-2 max-sm:py-3`}
               >
-                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-card/70 ${action.ink}`}>
-                  <action.icon className="h-6 w-6" strokeWidth={1.75} />
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-card/70 ${action.ink} max-sm:h-10 max-sm:w-10`}>
+                  <action.icon className="h-6 w-6 max-sm:h-5 max-sm:w-5" strokeWidth={1.75} />
                 </span>
                 <span>
-                  <span className={`block text-base font-semibold ${action.ink}`}>
+                  <span className={`block text-base font-semibold ${action.ink} max-sm:text-sm`}>
                     {action.label}
                   </span>
-                  <span className={`block text-sm ${action.ink} opacity-90`}>
+                  <span className={`block text-sm ${action.ink} opacity-90 max-sm:hidden`}>
                     {action.sub}
                   </span>
                 </span>
@@ -92,13 +96,15 @@ export function Contact() {
           ))}
         </RevealGroup>
 
-        <div className="mt-8 grid gap-6 sm:mt-10 sm:gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+        <div className="mt-8 grid gap-6 max-sm:mt-5 max-sm:gap-5 sm:mt-10 sm:gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <Reveal>
-            <div className="rounded-[2rem] border border-border bg-card p-6 sm:p-8">
-              <h3 className="font-display text-xl font-semibold text-ink">
+            {/* Telefon: ten sam promień i padding co pozostałe karty na telefonie
+                (FAQ, "Trzy kroki", "O mnie"), ciaśniejsze odstępy w listach. */}
+            <div className="rounded-[2rem] border border-border bg-card p-6 max-sm:rounded-[1.75rem] max-sm:p-5 sm:p-8">
+              <h3 className="font-display text-xl font-semibold text-ink max-sm:text-2xl">
                 Dane gabinetu
               </h3>
-              <ul className="mt-6 flex flex-col gap-5 text-base">
+              <ul className="mt-6 flex flex-col gap-5 text-base max-sm:mt-4 max-sm:gap-3">
                 <li className="flex items-start gap-3">
                   <Phone className="mt-0.5 h-5 w-5 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
                   <span className="text-ink-soft">{business.phone}</span>
@@ -115,11 +121,12 @@ export function Contact() {
                 </li>
               </ul>
 
-              <div className="mt-6 border-t border-border pt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-[0.1em] text-ink-soft/70">
+              <div className="mt-6 border-t border-border pt-6 max-sm:mt-5 max-sm:pt-5">
+                {/* Nadtytuł 12px jak pozostałe etykiety wersalikami na telefonie. */}
+                <h4 className="text-sm font-semibold uppercase tracking-[0.1em] text-ink-soft/70 max-sm:text-xs">
                   Godziny przyjęć
                 </h4>
-                <ul className="mt-4 flex flex-col gap-3 text-base">
+                <ul className="mt-4 flex flex-col gap-3 text-base max-sm:mt-3">
                   {openingHours.map((slot) => (
                     <li key={slot.label} className="flex items-start gap-3">
                       <Clock className="mt-0.5 h-5 w-5 shrink-0 text-cobalt-deep" strokeWidth={1.75} />
@@ -137,11 +144,11 @@ export function Contact() {
           <Reveal delay={0.1}>
             <form
               onSubmit={handleSubmit}
-              className="rounded-[2rem] border border-border bg-card p-6 sm:p-10"
+              className="rounded-[2rem] border border-border bg-card p-6 max-sm:rounded-[1.75rem] max-sm:p-5 sm:p-10"
               aria-label="Formularz kontaktowy"
             >
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div className="flex flex-col gap-2">
+              <div className="grid gap-5 max-sm:gap-4 sm:grid-cols-2">
+                <div className="flex flex-col gap-2 max-sm:gap-1.5">
                   <label htmlFor="name" className="text-sm font-medium text-ink">
                     Imię i nazwisko
                   </label>
@@ -154,11 +161,11 @@ export function Contact() {
                     enterKeyHint="next"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="min-h-14 rounded-2xl border border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
+                    className="min-h-14 rounded-2xl border max-sm:min-h-12 border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
                     placeholder="Jan Kowalski"
                   />
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 max-sm:gap-1.5">
                   <label htmlFor="contact" className="text-sm font-medium text-ink">
                     Telefon lub e-mail
                   </label>
@@ -174,13 +181,13 @@ export function Contact() {
                     enterKeyHint="next"
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
-                    className="min-h-14 rounded-2xl border border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
+                    className="min-h-14 rounded-2xl border max-sm:min-h-12 border-border bg-paper-dim px-4 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
                     placeholder="500 000 000 / jan@przyklad.pl"
                   />
                 </div>
               </div>
 
-              <div className="mt-5 flex flex-col gap-2">
+              <div className="mt-5 flex flex-col gap-2 max-sm:mt-4 max-sm:gap-1.5">
                 <label htmlFor="message" className="text-sm font-medium text-ink">
                   Wiadomość
                 </label>
@@ -191,7 +198,7 @@ export function Contact() {
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="rounded-2xl border border-border bg-paper-dim px-4 py-3.5 text-base text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
+                  className="rounded-2xl border border-border bg-paper-dim px-4 py-3.5 text-base max-sm:h-32 max-sm:py-3 text-ink placeholder:text-ink-soft/60 focus-visible:border-cobalt-deep"
                   placeholder="Np. Chciałbym/łabym umówić pierwszą wizytę diagnostyczną dla dziecka..."
                 />
               </div>
@@ -203,7 +210,7 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="mt-6 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-ink px-7 text-base font-semibold text-paper transition-transform hover:-translate-y-0.5 sm:w-auto"
+                className="mt-6 inline-flex min-h-14 w-full max-sm:mt-5 max-sm:min-h-12 items-center justify-center rounded-full bg-ink px-7 text-base font-semibold text-paper transition-transform hover:-translate-y-0.5 sm:w-auto"
               >
                 Wyślij wiadomość
               </button>

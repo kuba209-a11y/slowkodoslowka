@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# lokalna strona do podgladu wersji mobilnej (nie czesc strony)
+/public/podglad-mobile.html

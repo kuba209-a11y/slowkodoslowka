@@ -114,3 +114,16 @@ body {
 .text-balance {
   text-wrap: balance;
 }
+
+/* Hero na telefonie: gdy przyciski "Zadzwoń / Umów wizytę" odlecą do paska na
+   dole (HeroCta), ich slot w hero zwija się o 5rem (48px wysokości + 32px
+   marginesu). Hero skraca się o dokładnie tyle samo, tą samą animacją —
+   dzięki temu wolne miejsce w bloku (min-height minus zawartość) się nie
+   zmienia i nic nad slotem nie przeskakuje, a pusta dziura znika. Animacja
+   jest tylko w tym stanie, więc powrót na górę przywraca wysokość natychmiast. */
+@media (max-width: 639.98px) {
+  #hero:has([data-cta-slot][data-docked="true"]) {
+    min-height: calc(100dvh - var(--header-h) - 5rem);
+    transition: min-height 300ms ease-out;
+  }
+}

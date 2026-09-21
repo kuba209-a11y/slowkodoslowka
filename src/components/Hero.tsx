@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { Activity, ArrowUpRight, Phone, PlugZap } from "lucide-react";
+import { Activity, ArrowUpRight, PlugZap } from "lucide-react";
 import { stockPhotos } from "@/lib/images";
-import { business } from "@/lib/content";
+import { HeroCta } from "./HeroCta";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
 // Mała, szara pszczółka — statyczna (bez animacji), "siedzi" w wybranym
@@ -102,11 +102,26 @@ function Blob({ className }: { className: string }) {
   );
 }
 
+// Wąskie kafelki pod tekstem hero — wersja na telefon. Tytuły i kolory
+// wzięte 1:1 z trzech dużych kafelków, które od sm pokazują się jak dotąd.
+// Kolejność: najpierw grupa pacjentów, potem dwie metody. Nazwy pełniejsze
+// niż tytuły na dużych kafelkach — pasek jest linkiem do cennika, więc jego
+// treść to też tekst linku wewnętrznego, a "MFT" samo w sobie nic nie mówi
+// ani czytelnikowi, ani wyszukiwarce. "Elektrostymulacja logopedyczna" to
+// fraza używana przez gabinety i obecna w meta tagach strony. Pisownia
+// "miofunkcjonalna" (częstsza w wyszukiwaniach) obok "miofunkcyjnej"
+// w pozostałych sekcjach — strona łapie obie formy.
+const mobileTiles = [
+  { title: "Dorośli i dzieci", bg: "bg-cobalt", ink: "text-cobalt-ink" },
+  { title: "Terapia miofunkcjonalna (MFT)", bg: "bg-lavender", ink: "text-lavender-ink" },
+  { title: "Elektrostymulacja logopedyczna", bg: "bg-gold", ink: "text-gold-ink" },
+];
+
 export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[calc(100dvh-var(--header-h))] items-center px-4 py-10 sm:px-6 sm:py-14"
+      className="relative flex min-h-[calc(100dvh-var(--header-h))] items-stretch px-4 py-10 sm:items-center sm:px-6 sm:py-14"
     >
       {/* Faliste, przerywane linie w tle — pod tekstem i pod zdjęciami,
           z pszczółkami frunącymi wzdłuż ścieżki. Ukryte na telefonach:
@@ -139,11 +154,25 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl">
-        {/* Na telefonie cały blok jest wyrównany do lewej (odznaka wycentrowana
-            nad tekstem do lewej wyglądała jak przypadek); wycentrowanie odznaki
-            wraca dopiero na dużych ekranach, gdzie nagłówek wypełnia kolumnę. */}
-        <div className="relative mx-auto max-w-3xl text-left lg:text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col sm:block">
+        {/* Kompozycja jak w referencji ("Ułożenie tekstu hero"): zwarty blok
+            trzech linii, którego szerokość wyznacza najdłuższa linia
+            ("zasługuje na to,"), odznaka wycentrowana nad nim, a pod nim
+            podpis (na desktopie wcięty).
+            Na telefonie blok rozciąga się na wysokość sekcji (flex-1 zamiast
+            liczenia jej wzorem z dvh — dvh bywa inne niż wysokość okna),
+            a justify-between rozkłada wolne miejsce równo między
+            odznakę, claim, adres, paski i przyciski — zamiast zbierać je
+            w jedną pustkę nad odznaką. Od sm: zwykły blok, bez zmian.
+            w-full jest tu konieczne: mx-auto na elemencie flex blokuje
+            rozciąganie w poprzek, blok zwęziłby się do treści, a że rozmiar
+            claimu liczymy od jego szerokości (cqw), powstałoby błędne koło
+            i tekst miałby 0px.
+            @container: rozmiar claimu liczony jest w cqw, czyli od
+            szerokości tego bloku, a nie ekranu — 100vw w desktopowych
+            przeglądarkach wlicza pasek przewijania i blok wychodził o włos
+            za szeroki (ostatnie słowo spadało do nowej linii). */}
+        <div className="@container relative mx-auto flex w-full max-w-3xl flex-1 flex-col justify-between text-center sm:block sm:flex-none">
           {/* Delikatna, kręta ścieżka pod odznaką — odpowiednik "doodle" z referencji. */}
           <svg
             aria-hidden="true"
@@ -168,10 +197,11 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            {/* Skala płynna zamiast sztywnych 100px: na 375px daje ~34px
-                (mieści się w kolumnie), docelowe 100px osiąga ok. 1110px
-                szerokości — czyli desktop wygląda dokładnie jak wcześniej. */}
-            <h1 className="text-balance relative mt-6 text-left text-[clamp(2rem,9vw,6.25rem)] leading-[1.14] tracking-tight text-ink sm:mt-7 lg:leading-[1.21]">
+            {/* Najdłuższa linia ma 7,22 em szerokości, więc rozmiar liczony jako
+                (szerokość bloku) / 7,4 sprawia, że blok wypełnia całą kolumnę
+                (~48px na 390px, zapas na kursywę). Od lg zostaje dotychczasowa
+                skala — desktop bez zmian. */}
+            <h1 className="relative mt-7 text-left text-[length:min(calc(100cqw/7.4),6.25rem)] leading-[1.21] tracking-tight text-ink lg:text-[clamp(2rem,9vw,6.25rem)]">
               <span className="font-body font-semibold">Każde</span>{" "}
               <span className="font-accent italic">słowo</span>
               <br />
@@ -183,38 +213,62 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.16}>
-            {/* Wcięcie 84px (dosunięcie pod nagłówek) i wymuszenie jednej linii
-                mają sens dopiero przy docelowym, dużym nagłówku — na telefonie
-                i tablecie zjadałyby szerokość i wypychały tekst poza ekran. */}
-            <p className="mt-4 text-left text-base leading-relaxed text-ink-soft lg:ml-[84px] lg:whitespace-nowrap">
-              Diagnoza i terapia mowy w przyjaznym gabinecie przy ul. Paderewskiego w Rzeszowie.
+            {/* Ta sama treść na każdej szerokości — "dzieci, młodzieży
+                i dorosłych" mówi od razu, kogo gabinet przyjmuje (ta sama
+                fraza co w meta opisie i sekcji O mnie), zamiast żeby
+                czytelnik musiał to wywnioskować dopiero z niższych sekcji.
+                Łamanie po "gabinecie" jest wspólne dla wszystkich szerokości:
+                dłuższa linia sięga prawej krawędzi, adres zostaje w całości
+                w kolejnej — sprawdzone, że mieści się też przy wcięciu 84px
+                na desktopie (596/684px).
+                Na telefonie ten pierwszy segment (do "gabinecie") sam się
+                nie mieści w jednej linii nawet przy najmniejszym czytelnym
+                rozmiarze — bez kontroli przeglądarka zawijała go, gdzie
+                wypadło, zostawiając na drugiej linii tylko 1-2 słowa i dużo
+                pustki po prawej. Drugi, telefonowy-only <br> po "młodzieży"
+                (najbliżej połowy segmentu: 20,1 em vs 17,2 em reszty, ze
+                wszystkich możliwych granic wyrazów najbardziej wyrównane)
+                dzieli go na dwie linie, które obie sięgają blisko prawej
+                krawędzi zamiast jednej pełnej i jednej postrzępionej. */}
+            <p className="mt-4 text-left text-[length:clamp(0.875rem,calc(100cqw/20.4),1.0625rem)] leading-relaxed text-ink-soft [text-wrap:pretty] sm:text-base lg:ml-[84px]">
+              {/* Twarde spacje po jednoliterowych słowach i skrócie "ul." —
+                  nie mogą zostawać na końcu linii (sierotki). Rozmiar na
+                  telefonie liczony od szerokości bloku (cqw) sprawia, że
+                  najdłuższa linia wypełnia kolumnę na każdym telefonie. */}
+              Diagnoza i&nbsp;terapia mowy dzieci, młodzieży{" "}
+              <br className="sm:hidden" />
+              i&nbsp;dorosłych w&nbsp;przyjaznym gabinecie{" "}
+              <br />
+              przy ul.&nbsp;Paderewskiego w&nbsp;Rzeszowie.
             </p>
           </Reveal>
 
-          {/* Główne CTA w hero — tylko do rozmiaru tabletu. Od lg te same dwie
-              akcje są stale widoczne w headerze, więc tam byłyby duplikatem;
-              poniżej lg header chowa je pod hamburgerem i bez tego bloku
-              użytkownik telefonu nie ma żadnej drogi do kontaktu na starcie. */}
+          {/* Telefon: trzy wąskie kafelki zamiast dużych kart (te wracają od
+              sm). Same tytuły w kolorach swoich kart — hero mieści się dzięki
+              temu w jednym ekranie, a każdy pasek nadal prowadzi do cennika. */}
+          <Reveal delay={0.2}>
+            <ul className="mt-7 flex flex-col gap-2.5 sm:hidden">
+              {mobileTiles.map((tile) => (
+                <li key={tile.title}>
+                  <a
+                    href="#oferta"
+                    className={`flex min-h-[3.25rem] items-center rounded-2xl ${tile.bg} px-5 font-display text-lg font-semibold ${tile.ink} transition-transform active:scale-[0.99]`}
+                  >
+                    {tile.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
           <Reveal delay={0.24}>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center lg:hidden">
-              <a
-                href="#kontakt"
-                className="inline-flex min-h-14 items-center justify-center rounded-full bg-ink px-7 text-base font-semibold text-paper transition-transform active:scale-[0.98]"
-              >
-                Umów konsultację
-              </a>
-              <a
-                href={business.phoneHref}
-                className="inline-flex min-h-14 items-center justify-center gap-2.5 rounded-full border border-border bg-card px-7 text-base font-semibold text-ink transition-transform active:scale-[0.98]"
-              >
-                <Phone className="h-4.5 w-4.5 text-cobalt-deep" strokeWidth={2.2} />
-                {business.phone}
-              </a>
-            </div>
+            <HeroCta />
           </Reveal>
         </div>
 
-        <div className="relative mt-16 sm:mt-20">
+        {/* Duże kafelki: od sm (tablet i desktop) — bez zmian. Na telefonie
+            zastępują je wąskie paski nad przyciskami. */}
+        <div className="relative mt-12 hidden sm:mt-20 sm:block">
           {/* Naklejki-etykiety porozrzucane wokół kafelków, pod różnymi kątami. */}
           <span
             aria-hidden="true"

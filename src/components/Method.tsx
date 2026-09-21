@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { clinicPhotos } from "@/lib/images";
 import { Reveal } from "./Reveal";
 
@@ -83,6 +83,10 @@ const slideVariants = {
 
 export function Method() {
   const [[index, direction], setSlide] = useState<[number, number]>([0, 0]);
+  // Stan przełącznika "aspekty metody" (tylko telefon) trzymamy tutaj, a nie
+  // w slajdzie — przy zmianie metody slajd się montuje od nowa i lokalny stan
+  // by się zerował. Otwarte zostaje otwarte po przełączeniu na drugą metodę.
+  const [benefitsOpen, setBenefitsOpen] = useState(false);
   const method = methods[index];
 
   function go(next: number) {
@@ -187,37 +191,83 @@ export function Method() {
               </div>
 
               <div>
-                <h2 className="text-balance font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl lg:text-[3.75rem]">
+                <h2 className="text-balance font-display text-3xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl lg:text-[3.75rem]">
                   {method.title}
                   <br />
                   <span className="font-accent text-cobalt-deep">{method.accent}</span>
                 </h2>
-                <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-soft">
+                <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-soft sm:text-lg">
                   {method.description}
                 </p>
 
-                {/* Siatka 2×2 rozdzielona włosowymi liniami - kolor tła siatki
-                    prześwituje przez 1px odstępy między komórkami. */}
-                <div className="mt-10 grid gap-px overflow-hidden rounded-[1.5rem] border border-border bg-border sm:grid-cols-2">
-                  {method.benefits.map((b, i) => (
-                    <motion.div
-                      key={b.number}
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.35, delay: 0.12 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                      className="flex flex-col gap-4 bg-card p-6 sm:p-8"
-                    >
+                {/* Punkty 1-4: od sm siatka 2×2 rozdzielona włosowymi liniami (kolor
+                    tła siatki prześwituje przez 1px odstępy) — bez zmian.
+                    Na telefonie 4 wysokie kafelki (594px) chowają się pod jednym
+                    przełącznikiem "Aspekty metody", a po rozwinięciu są
+                    zwartymi wierszami (numer + tekst). Jeden przełącznik zamiast
+                    kolejnej karuzeli (metody przełącza się już kropkami) czy
+                    czterech osobnych akordeonów. Panel to ten sam wzorzec
+                    grid-rows 0fr/1fr co w FAQ. Od sm zewnętrzna siatka ma jeden
+                    wiersz auto, więc układ jest taki jak dawniej. */}
+                <div className="mt-6 sm:mt-10">
+                  <button
+                    type="button"
+                    onClick={() => setBenefitsOpen((v) => !v)}
+                    aria-expanded={benefitsOpen}
+                    aria-controls="aspekty-metody"
+                    className="flex min-h-14 w-full items-center justify-between gap-3 rounded-[1.25rem] border border-border bg-paper-dim px-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt-deep sm:hidden"
+                  >
+                    <span className="flex items-center gap-3">
                       <span
                         aria-hidden="true"
-                        className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl text-sm font-semibold ${b.chip}`}
+                        className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-cobalt-deep text-xs font-semibold text-paper"
                       >
-                        {b.number}
+                        {method.benefits.length}
                       </span>
-                      <p className="text-pretty text-lg font-semibold leading-snug text-ink">
-                        {b.text}
-                      </p>
-                    </motion.div>
-                  ))}
+                      <span className="font-display text-lg font-semibold text-ink">
+                        Aspekty metody
+                      </span>
+                    </span>
+                    <ChevronDown
+                      aria-hidden="true"
+                      className={`h-5 w-5 shrink-0 text-ink-soft transition-transform duration-300 ${
+                        benefitsOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <div
+                    id="aspekty-metody"
+                    className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                      benefitsOpen ? "max-sm:grid-rows-[1fr]" : "max-sm:grid-rows-[0fr]"
+                    }`}
+                  >
+                    <div className="min-h-0 max-sm:overflow-hidden">
+                      <div className="max-sm:pt-3">
+                        <div className="grid gap-px overflow-hidden rounded-[1.5rem] border border-border bg-border sm:grid-cols-2">
+                          {method.benefits.map((b, i) => (
+                            <motion.div
+                              key={b.number}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.35, delay: 0.12 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                              className="flex flex-col gap-4 bg-card p-6 sm:p-8 max-sm:flex-row max-sm:items-center max-sm:gap-3 max-sm:px-4 max-sm:py-3"
+                            >
+                              <span
+                                aria-hidden="true"
+                                className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl text-sm font-semibold max-sm:h-8 max-sm:w-8 max-sm:rounded-lg max-sm:text-xs ${b.chip}`}
+                              >
+                                {b.number}
+                              </span>
+                              <p className="text-pretty text-lg font-semibold leading-snug text-ink max-sm:text-base max-sm:font-medium">
+                                {b.text}
+                              </p>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
