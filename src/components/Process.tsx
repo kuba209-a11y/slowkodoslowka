@@ -34,8 +34,13 @@ export function Process() {
             Jak przebiega terapia
           </span>
           <h2 className="text-balance mt-4 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
+            {/* Na telefonie "pewnej" zostaje w pierwszym wierszu (balance
+                dawało "Trzy kroki do / pewnej mowy" i pustkę po prawej). */}
             Trzy kroki do{" "}
-            <span className="font-accent text-cobalt-deep">pewnej mowy</span>
+            <span className="font-accent text-cobalt-deep">
+              pewnej
+              <br className="sm:hidden" /> mowy
+            </span>
           </h2>
         </div>
 

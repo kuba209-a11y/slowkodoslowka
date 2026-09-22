@@ -238,7 +238,7 @@ export function Method() {
 
                   <div
                     id="aspekty-metody"
-                    className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                    className={`grid transition-[grid-template-rows] duration-300 ease-out max-sm:duration-[360ms] max-sm:ease-[cubic-bezier(0.4,0,0.2,1)] ${
                       benefitsOpen ? "max-sm:grid-rows-[1fr]" : "max-sm:grid-rows-[0fr]"
                     }`}
                   >

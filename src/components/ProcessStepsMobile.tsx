@@ -68,20 +68,23 @@ export function ProcessStepsMobile({ steps }: { steps: Step[] }) {
                   na telefonach przycinało. Zamykany i otwierany krok jadą tą
                   samą krzywą, a tekst dodatkowo wjeżdża przez opacity +
                   translate (kompozytor), więc sam ruch wysokości może być
-                  spokojniejszy. */}
+                  spokojniejszy. Krzywa z łagodnym startem (ease-in-out):
+                  pierwsza klatka po stuknięciu jest zawsze wolniejsza (render
+                  Reacta), a przy krzywej "szybki start" panel robił w niej
+                  ~70% drogi naraz — wyglądało to jak lag i skok. */}
               <motion.div
                 id={panelId}
                 role="region"
                 initial={false}
                 animate={isOpen ? "open" : "closed"}
                 variants={{ open: { height: "auto" }, closed: { height: 0 } }}
-                transition={reduceMotion ? { duration: 0 } : { duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.36, ease: [0.4, 0, 0.2, 1] }}
                 className="overflow-hidden"
               >
                 {/* Wcięcie = numer (44px) + odstęp (16px), równo z tytułem. */}
                 <motion.p
                   variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: -6 } }}
-                  transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease: "easeOut" }}
+                  transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                   className="pb-4 pl-[60px] leading-relaxed text-ink-soft"
                 >
                   {step.text}
