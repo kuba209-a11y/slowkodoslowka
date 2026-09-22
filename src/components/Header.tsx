@@ -24,9 +24,13 @@ export function Header() {
     };
   }, [open]);
 
+  // Na telefonie bez backdrop-blur: rozmycie tła pod przyklejonym headerem
+  // przeliczało się w każdej klatce, w której treść pod nim się ruszała
+  // (scroll, rozwijane akordeony) — to główny koszt klatki na słabszych
+  // telefonach. Tło jest prawie nieprzezroczyste, więc różnicy nie widać.
   return (
     <header className="sticky top-0 z-50 px-2 pt-4 sm:px-3">
-      <div className="mx-auto flex h-[68px] w-full max-w-[1920px] items-center justify-between rounded-full border border-border bg-card/90 pl-5 pr-2.5 shadow-[0_10px_30px_-14px_rgba(57,44,110,0.25)] backdrop-blur-sm sm:pl-8 sm:pr-3">
+      <div className="mx-auto flex h-[68px] w-full max-w-[1920px] items-center justify-between rounded-full border border-border bg-card/90 pl-5 pr-2.5 shadow-[0_10px_30px_-14px_rgba(57,44,110,0.25)] backdrop-blur-sm max-sm:bg-card/95 max-sm:backdrop-blur-none sm:pl-8 sm:pr-3">
         <a href="#hero" className="rounded-full">
           <Logo />
         </a>

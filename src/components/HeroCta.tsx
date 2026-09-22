@@ -109,7 +109,9 @@ export function HeroCta() {
             <div className="relative mx-auto max-w-md">
               {/* Tło pigułki pojawia się osobno, trochę po przyciskach — gdyby
                   przyciski były w nim zagnieżdżone, dziedziczyłyby jego
-                  przezroczystość i w locie byłyby niewidoczne. */}
+                  przezroczystość i w locie byłyby niewidoczne. Na telefonie
+                  bez backdrop-blur (jak w headerze) — to rozmycie liczyło się
+                  w każdej klatce ruchu treści pod paskiem. */}
               <motion.div
                 aria-hidden="true"
                 initial={false}
@@ -119,7 +121,7 @@ export function HeroCta() {
                     ? { duration: 0 }
                     : { duration: 0.3, delay: docked ? 0.2 : 0 }
                 }
-                className="absolute inset-0 rounded-full border border-border bg-card/95 shadow-[0_14px_36px_-14px_rgba(27,32,68,0.5)] backdrop-blur-sm"
+                className="absolute inset-0 rounded-full border border-border bg-card/95 shadow-[0_14px_36px_-14px_rgba(27,32,68,0.5)] backdrop-blur-sm max-sm:bg-card max-sm:backdrop-blur-none"
               />
               <div className={`relative flex gap-2 p-2 ${docked ? "pointer-events-auto" : ""}`}>
                 {docked && <Buttons place="bar" transition={flight} />}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 type Step = {
@@ -19,6 +20,7 @@ type Step = {
 // kroki czyta się po kolei, a karuzela pokazywałaby tylko jeden naraz.
 export function ProcessStepsMobile({ steps }: { steps: Step[] }) {
   const [open, setOpen] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   return (
     <Reveal className="sm:hidden">
@@ -61,18 +63,30 @@ export function ProcessStepsMobile({ steps }: { steps: Step[] }) {
                   />
                 </button>
               </h3>
-              <div
+              {/* Wysokość panelu animuje Framer Motion (do zmierzonej wysokości
+                  treści) zamiast przejścia CSS grid-template-rows 0fr/1fr, które
+                  na telefonach przycinało. Zamykany i otwierany krok jadą tą
+                  samą krzywą, a tekst dodatkowo wjeżdża przez opacity +
+                  translate (kompozytor), więc sam ruch wysokości może być
+                  spokojniejszy. */}
+              <motion.div
                 id={panelId}
                 role="region"
-                className={`grid transition-[grid-template-rows] duration-300 ease-out ${
-                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                }`}
+                initial={false}
+                animate={isOpen ? "open" : "closed"}
+                variants={{ open: { height: "auto" }, closed: { height: 0 } }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
               >
-                <div className="overflow-hidden">
-                  {/* Wcięcie = numer (44px) + odstęp (16px), równo z tytułem. */}
-                  <p className="pb-4 pl-[60px] leading-relaxed text-ink-soft">{step.text}</p>
-                </div>
-              </div>
+                {/* Wcięcie = numer (44px) + odstęp (16px), równo z tytułem. */}
+                <motion.p
+                  variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: -6 } }}
+                  transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease: "easeOut" }}
+                  className="pb-4 pl-[60px] leading-relaxed text-ink-soft"
+                >
+                  {step.text}
+                </motion.p>
+              </motion.div>
             </li>
           );
         })}

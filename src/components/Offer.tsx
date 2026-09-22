@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { animate, motion, useMotionValue, type AnimationPlaybackControls } from "framer-motion";
 import { pricing } from "@/lib/content";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
@@ -34,31 +35,46 @@ const NEIGHBOR_PEEK = 44; // ile px następna karta wystaje spod aktywnej (z pra
 // więc poprzednia wystaje z lewej tylko w tym marginesie.
 const PREV_PEEK = 16;
 
+const COUNT = pricing.length;
+const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
+const isCarousel = () => !window.matchMedia("(min-width: 640px)").matches && COUNT > 1;
+
 // Na telefonie (poniżej sm) cztery karty cennika jeden pod drugim zajmowały
 // ~2200px — tam są karuzelą, w której karty nachodzą na siebie: aktywna na
 // wierzchu, poprzednia wystaje spod niej z lewej, następna z prawej. Przy
 // przesuwaniu górna karta jedzie w lewo, a ta z prawej wysuwa się na
-// wierzch. Pod spodem działa natywny scroll-snap (swipe, bezwładność,
-// klawiatura), a nachodzenie to transformacje liczone z pozycji przewinięcia.
+// wierzch.
+//
+// Ruchem steruje wyłącznie jedna wartość `pos` (pozycja w kartach, ułamkowo):
+// przeciąganie palcem ustawia ją na bieżąco, a puszczenie / kropka animuje
+// ją sprężyną do najbliższej karty. Wcześniej pod spodem był natywny
+// scroll-snap, a nachodzenie kart liczone ze zdarzenia scroll — na telefonie
+// przewijanie idzie w wątku kompozytora, a zdarzenie scroll przychodzi
+// klatkę później, więc w każdej klatce karty najpierw jechały z przewijaniem,
+// a potem JS je cofał: drżenie i rozmycie przy każdej zmianie karty. Teraz
+// tor się nie przewija (overflow-hidden), a karty przesuwa tylko transform.
 // Nawigacja: kropki pod kartami. Od sm w górę ten sam markup układa się
 // w dotychczasową siatkę 2 / 4 kolumn — tablet i desktop bez zmian.
 export function Offer() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const pos = useMotionValue(0);
+  const step = useRef(0); // odległość między slotami kart w torze (px)
+  const panFrom = useRef(0);
+  const dragged = useRef(false);
+  const settling = useRef<AnimationPlaybackControls | null>(null);
 
-  // Sloty kart to dzieci RevealGroup (jedynego dziecka toru przewijania);
-  // wizualna karta jest pierwszym dzieckiem slotu.
+  // Sloty kart to dzieci RevealGroup (jedynego dziecka toru); wizualna karta
+  // jest pierwszym dzieckiem slotu.
   const slots = useCallback(() => {
     const group = trackRef.current?.firstElementChild;
     return group ? (Array.from(group.children) as HTMLElement[]) : [];
   }, []);
 
   const applyStack = useCallback(() => {
-    const track = trackRef.current;
     const list = slots();
-    if (!track || list.length === 0) return;
-    const carousel = !window.matchMedia("(min-width: 640px)").matches && list.length > 1;
-    if (!carousel) {
+    if (list.length === 0) return;
+    if (!isCarousel()) {
       // Tablet / desktop: zwykła siatka, żadnych transformacji.
       list.forEach((slot) => {
         const card = slot.firstElementChild as HTMLElement | null;
@@ -71,51 +87,57 @@ export function Offer() {
       });
       return;
     }
-    // Krok przewijania = odległość między slotami w torze (wygodny swipe).
-    // Wizualnie następne karty stoją jednak tylko NEIGHBOR_PEEK od aktywnej,
-    // a poprzednie PREV_PEEK, więc przesuwamy każdą o d·(wysunięcie − krok)
-    // względem jej slotu.
-    const step = list[1].offsetLeft - list[0].offsetLeft;
-    const position = track.scrollLeft / step;
+    // Slot i-tej karty leży i·krok od pierwszego (tor stoi w miejscu), a
+    // wizualnie następne karty stoją tylko NEIGHBOR_PEEK od aktywnej,
+    // poprzednie PREV_PEEK — transform = pozycja wizualna − pozycja slotu.
+    const position = pos.get();
     list.forEach((slot, i) => {
       const card = slot.firstElementChild as HTMLElement | null;
       if (!card) return;
       const d = i - position; // <0: poprzednie (z lewej), >0: następne (z prawej)
       const a = Math.abs(d);
       const peek = d < 0 ? PREV_PEEK : NEIGHBOR_PEEK;
-      card.style.transform = `translate3d(${d * (peek - step)}px, 0, 0)`;
+      card.style.transform = `translate3d(${d * peek - i * step.current}px, 0, 0)`;
       // Widać tylko bezpośrednich sąsiadów — dalsze karty gasną za nimi.
       card.style.opacity = a > 1 ? String(Math.max(0, 1 - (a - 1) * 2)) : "";
       card.style.willChange = "transform";
-      // Im bliżej środka, tym wyżej; zamiana w połowie przesunięcia.
+      // Im bliżej wierzchu, tym wyżej; zamiana w połowie przesunięcia.
       slot.style.zIndex = String(1000 - Math.round(a * 100));
     });
-  }, [slots]);
+  }, [pos, slots]);
 
   useEffect(() => {
-    applyStack();
-    window.addEventListener("resize", applyStack);
-    return () => window.removeEventListener("resize", applyStack);
-  }, [applyStack]);
+    const measure = () => {
+      const list = slots();
+      step.current = list.length > 1 ? list[1].offsetLeft - list[0].offsetLeft : 0;
+      applyStack();
+    };
+    measure();
+    const unsubscribe = pos.on("change", (v) => {
+      applyStack();
+      const index = clamp(Math.round(v), 0, COUNT - 1);
+      setActive((prev) => (prev === index ? prev : index));
+    });
+    window.addEventListener("resize", measure);
+    return () => {
+      unsubscribe();
+      window.removeEventListener("resize", measure);
+    };
+  }, [applyStack, pos, slots]);
 
-  function onTrackScroll() {
-    const track = trackRef.current;
-    const list = slots();
-    if (!track || list.length < 2) return;
-    applyStack();
-    const step = list[1].offsetLeft - list[0].offsetLeft;
-    const index = Math.min(list.length - 1, Math.max(0, Math.round(track.scrollLeft / step)));
-    if (index !== active) setActive(index);
+  // Dojazd sprężyną do karty; velocity w kartach/s — z palca przy puszczeniu.
+  function settle(index: number, velocity = 0) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    settling.current?.stop();
+    settling.current = animate(
+      pos,
+      index,
+      reduce ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 34, velocity }
+    );
   }
 
   function goTo(index: number) {
-    const track = trackRef.current;
-    const slot = slots()[index];
-    if (!track || !slot) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Zatrzask do lewej: początek slotu przy lewym paddingu toru.
-    const left = slot.offsetLeft - parseFloat(getComputedStyle(track).paddingLeft);
-    track.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
+    settle(clamp(index, 0, COUNT - 1));
   }
 
   return (
@@ -140,20 +162,45 @@ export function Offer() {
         {/* Zewnętrzny kontener (pełna szerokość ekranu na telefonie) jest
             punktem odniesienia dla cqw — karta ma szerokość ekranu minus
             3.75rem: aktywna zaczyna się przy lewym marginesie strony (pl-4,
-            zatrzask do lewej z scroll-pl-4, równo z nagłówkiem), a z prawej
+            równo z nagłówkiem), a z prawej
             zostaje 44px, w których następna karta wystaje aż do krawędzi
             ekranu (bez pustego marginesu po prawej).
-            pb-6 — miejsce na cień (overflow-x-auto przycina też w pionie).
+            pb-6 — miejsce na cień (overflow-hidden przycina też w pionie).
             Od sm — zwykły blok, a w środku dotychczasowa siatka. */}
         <div className="@container -mx-4 sm:mx-0">
-        <div
+        {/* touch-pan-y: pionowe przewijanie strony zostaje przeglądarce,
+            poziomy ruch palca przejmuje karuzela (tylko telefon). */}
+        <motion.div
           ref={trackRef}
-          onScroll={onTrackScroll}
-          className="relative mt-8 snap-x snap-mandatory overflow-x-auto scroll-pl-4 pl-4 pr-11 pt-1 pb-6 [scrollbar-width:none] sm:mt-12 sm:snap-none sm:overflow-visible sm:p-0 [&::-webkit-scrollbar]:hidden"
+          onPointerDown={() => {
+            dragged.current = false;
+          }}
+          onPanStart={() => {
+            if (!isCarousel()) return;
+            settling.current?.stop();
+            panFrom.current = pos.get();
+            dragged.current = true;
+          }}
+          onPan={(_, info) => {
+            if (!isCarousel() || !step.current) return;
+            let p = panFrom.current - info.offset.x / step.current;
+            // Opór za pierwszą i ostatnią kartą.
+            if (p < 0) p *= 0.3;
+            else if (p > COUNT - 1) p = COUNT - 1 + (p - (COUNT - 1)) * 0.3;
+            pos.set(p);
+          }}
+          onPanEnd={(_, info) => {
+            if (!isCarousel() || !step.current) return;
+            const velocity = -info.velocity.x / step.current;
+            // Rzut z bezwładnością, ale najwyżej jedna karta od startu gestu.
+            const from = Math.round(panFrom.current);
+            const target = clamp(Math.round(pos.get() + velocity * 0.2), from - 1, from + 1);
+            settle(clamp(target, 0, COUNT - 1), velocity);
+          }}
+          className="relative mt-8 overflow-hidden pl-4 pr-11 pt-1 pb-6 max-sm:touch-pan-y max-sm:touch-pinch-zoom max-sm:select-none sm:mt-12 sm:overflow-visible sm:p-0"
         >
-        {/* w-max: grupa ma szerokość wszystkich kart, dzięki czemu prawy padding
-            toru liczy się do zakresu przewijania i ostatnia karta dojeżdża na
-            środek (bez tego karty "wystawały" z grupy, a padding przepadał). */}
+        {/* w-max: grupa ma szerokość wszystkich kart ułożonych w rzędzie —
+            z ich pozycji liczony jest krok karuzeli. */}
         <RevealGroup className="flex w-max gap-4 sm:grid sm:w-auto sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {pricing.map((group, i) => {
             const s = styles[i % styles.length];
@@ -161,10 +208,11 @@ export function Offer() {
               <RevealItem
                 key={group.group}
                 onClick={() => {
-                  // Stuknięcie w kartę wystającą z boku wyciąga ją na wierzch.
-                  if (i !== active) goTo(i);
+                  // Stuknięcie w kartę wystającą z boku wyciąga ją na wierzch
+                  // (ale nie kończące przeciąganie palcem).
+                  if (!dragged.current && i !== active) goTo(i);
                 }}
-                className="relative w-[calc(100cqw-3.75rem)] shrink-0 snap-start sm:w-auto"
+                className="relative w-[calc(100cqw-3.75rem)] shrink-0 sm:w-auto"
               >
               <div
                 className={`flex h-full flex-col rounded-[2rem] ${s.bg} p-6 shadow-[0_12px_32px_-14px_rgba(27,32,68,0.45)] sm:p-8 sm:shadow-none`}
@@ -192,7 +240,7 @@ export function Offer() {
             );
           })}
         </RevealGroup>
-        </div>
+        </motion.div>
         </div>
 
         {/* Kropki pod kartami — tylko na telefonie. Przycisk 44×44px to
