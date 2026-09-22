@@ -236,10 +236,14 @@ export function Method() {
                     />
                   </button>
 
+                  {/* Telefon: panel bez animowania wysokości (ta przemalowywała
+                      całą stronę w każdej klatce i przycinała) — otwiera się od
+                      razu, a treść wjeżdża przez opacity + translate (panel-in
+                      z globals.css). Od sm panel jest zawsze widoczny. */}
                   <div
                     id="aspekty-metody"
-                    className={`grid transition-[grid-template-rows] duration-300 ease-out max-sm:duration-[360ms] max-sm:ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                      benefitsOpen ? "max-sm:grid-rows-[1fr]" : "max-sm:grid-rows-[0fr]"
+                    className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                      benefitsOpen ? "max-sm:animate-[panel-in_280ms_ease-out]" : "max-sm:hidden"
                     }`}
                   >
                     <div className="min-h-0 max-sm:overflow-hidden">

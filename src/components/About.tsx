@@ -1,5 +1,6 @@
 import { Car, GraduationCap, HeartHandshake, ImageIcon, Target } from "lucide-react";
 import { typeset } from "@/lib/typography";
+import { JustifiedText } from "./JustifiedText";
 import { Reveal, RevealGroup, RevealItem } from "./Reveal";
 
 const areas = [
@@ -100,8 +101,8 @@ export function About() {
               Poznajmy się -{" "}
               <span className="font-accent text-cobalt-deep">jestem Edyta</span>
             </h2>
-            <p className={`mt-5 leading-relaxed text-ink-soft ${justify}`}>{typeset(intro[0])}</p>
-            <p className={`mt-4 leading-relaxed text-ink-soft ${justify}`}>{typeset(intro[1])}</p>
+            <p className={`mt-5 leading-relaxed text-ink-soft ${justify}`}><JustifiedText text={typeset(intro[0])} /></p>
+            <p className={`mt-4 leading-relaxed text-ink-soft ${justify}`}><JustifiedText text={typeset(intro[1])} /></p>
 
             {/* Telefon: trzy kafelki (po ~157px każdy) zamieniają się w jedną
                 kompaktową kartę-listę: kolorowe kółko z ikoną obok tytułu,
@@ -126,7 +127,7 @@ export function About() {
                     {point.title}
                   </h3>
                   <p className={`mt-1.5 text-sm leading-relaxed ${point.ink} opacity-90 max-sm:col-span-2 max-sm:mt-0 max-sm:text-ink-soft max-sm:opacity-100 max-sm:leading-normal ${justify}`}>
-                    {typeset(point.text)}
+                    <JustifiedText text={typeset(point.text)} />
                   </p>
                 </RevealItem>
               ))}

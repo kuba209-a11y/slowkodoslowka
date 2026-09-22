@@ -135,3 +135,17 @@ body {
     content-visibility: auto;
   }
 }
+
+/* Wjazd treści rozwijanego panelu na telefonie ("Trzy kroki", aspekty
+   metody): tylko opacity + transform, więc bez przeliczania układu w każdej
+   klatce. Przy prefers-reduced-motion czas skraca reguła wyżej. */
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

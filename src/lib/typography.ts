@@ -15,26 +15,34 @@ const NBSP = "\u00a0";
 // na końcu / początku linii — sklejamy je twardą spacją z sąsiednim słowem.
 const SINGLE_LETTERS = new Set(["a", "i", "o", "u", "w", "z"]);
 
-const MIN_WORD = 7; // krótszych wyrazów nie dzielimy
-const MIN_FRAGMENT = 3; // żadnych okruchów typu "Te-" / "-ją" przy brzegu linii
+// Po co najmniej 3 litery po obu stronach łącznika (bez okruchów typu "wa-"
+// / "-ją"); krótszych wyrazów nie dzielimy wcale. Czy
+// dzielić naprawdę, decyduje dopiero łamanie akapitu (JustifiedText) — z karą
+// za każdy podział, więc łączników jest tylko tyle, ile trzeba.
+const MIN_WORD = 5;
+const MIN_BEFORE = 3; // liter przed łącznikiem (koniec wiersza)
+const MIN_AFTER = 3; // liter po łączniku (początek następnego wiersza)
 
 function hyphenateWord(word: string) {
-  // części przez istniejący łącznik ("ustno-twarzowej") dzielimy osobno —
-  // przed prawdziwym "-" miękki łącznik dałby linię zaczynającą się od "-".
+  // Wyrazów z łącznikiem ("ustno-twarzowej") nie dzielimy dodatkowo —
+  // "ustno-twa-rzowej" to błąd składu; wiersz może się złamać po "-".
+  if (word.includes("-")) return word;
   return word
     .split("-")
     .map((part) => {
       const letters = part.replace(/[^\p{L}]/gu, "");
       if (letters.length < MIN_WORD) return part;
       const syllables = hyphenator.hyphenate(part);
+      // liczymy same litery — "wy," to nadal tylko 2 litery na nowy wiersz
+      const count = (t: string) => t.replace(/[^\p{L}]/gu, "").length;
       let out = syllables[0];
-      let left = out.length;
+      let left = count(out);
       for (let i = 1; i < syllables.length; i++) {
-        const rest = syllables.slice(i).join("").length;
-        const ok = left >= MIN_FRAGMENT && rest >= MIN_FRAGMENT;
+        const rest = count(syllables.slice(i).join(""));
+        const ok = left >= MIN_BEFORE && rest >= MIN_AFTER;
         out += (ok ? SOFT_HYPHEN : "") + syllables[i];
         if (ok) left = 0;
-        left += syllables[i].length;
+        left += count(syllables[i]);
       }
       return out;
     })
