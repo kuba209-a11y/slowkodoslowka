@@ -8,6 +8,7 @@ import { FAQ } from "@/components/FAQ";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { WireDivider } from "@/components/WireDivider";
+import { OffscreenSkip } from "@/components/OffscreenSkip";
 
 export default function Home() {
   return (
@@ -59,6 +60,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <OffscreenSkip />
     </>
   );
 }
