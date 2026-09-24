@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   motion,
   useReducedMotion,
@@ -60,6 +60,16 @@ type Shape = "circle" | "star" | "cloud" | "sun";
 // div jest zawsze kwadratowym/okrągłym pojemnikiem, a kształty typu gwiazda
 // czy chmurka go nie wypełniają — cień rysował się więc jako widoczna,
 // przezroczysta "bańka" wokół samego kształtu.
+// Czy użytkownik choć raz przewinął stronę — raz ustawione zostaje na stałe
+// (wspólne dla wszystkich dzielników).
+let everScrolled = false;
+function subscribeScroll(onChange: () => void) {
+  window.addEventListener("scroll", onChange, { passive: true });
+  return () => window.removeEventListener("scroll", onChange);
+}
+const getEverScrolled = () => (everScrolled ||= window.scrollY > 0);
+const getEverScrolledOnServer = () => false;
+
 function Bead({ shape, color }: { shape: Shape; color: string }) {
   const uid = useId().replace(/[:]/g, "");
   const gradId = `wg-${uid}`;
@@ -170,21 +180,7 @@ export function WireDivider({
   // Klocek ma się pojawić dopiero, gdy użytkownik faktycznie zacznie scrollować
   // — nie od razu po wejściu na stronę, nawet jeśli ten odcinek drutu jest już
   // (częściowo) w widoku przy pierwszym renderze.
-  const [hasScrolled, setHasScrolled] = useState(false);
-  useEffect(() => {
-    if (window.scrollY > 0) {
-      setHasScrolled(true);
-      return;
-    }
-    const onScroll = () => {
-      if (window.scrollY > 0) {
-        setHasScrolled(true);
-        window.removeEventListener("scroll", onScroll);
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const hasScrolled = useSyncExternalStore(subscribeScroll, getEverScrolled, getEverScrolledOnServer);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -218,11 +214,15 @@ export function WireDivider({
     [0, 0.5, 0.5, 0]
   );
 
+  // Telefon: przycinamy tylko w poziomie (klocek przy brzegach ekranu nie
+  // może wystawać w bok). Pionowe overflow-hidden ucinało rozmytą poświatę
+  // klocka na sztywno o dolną/górną krawędź 120px paska, gdy drut schodził
+  // najniżej / najwyżej — widać było prostą granicę pod klockiem.
   return (
     <div
       ref={ref}
       aria-hidden="true"
-      className={`relative -mb-6 h-[120px] w-full overflow-hidden sm:-mb-8 sm:h-[200px] ${className}`}
+      className={`relative -mb-6 h-[120px] w-full overflow-hidden max-sm:overflow-x-clip max-sm:overflow-y-visible sm:-mb-8 sm:h-[200px] ${className}`}
     >
       <svg
         viewBox={`0 0 ${W} ${H}`}
